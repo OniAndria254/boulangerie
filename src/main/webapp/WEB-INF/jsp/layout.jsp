@@ -107,6 +107,9 @@
                             <li class="nav-item">
                                 <a href="/uniteMesure/list" class="nav-link">Unité de mesure</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/ingredient/list" class="nav-link">Ingredient</a>
+                            </li>
 
                         </ul>
                     </div>
