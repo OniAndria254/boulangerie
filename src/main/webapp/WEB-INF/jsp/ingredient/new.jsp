@@ -15,15 +15,15 @@
 
         <h4 class="card-title">Insertion Ingredient</h4>
 
-        <form class="forms-sample" method="post" action="/uniteMesure/add">
+        <form class="forms-sample" method="post" action="/ingredient/add">
           <div class="mb-3">
-            <label for="libelle" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="libelle" name="libelle">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Unite de mesure</label>
-            <select class="form-select mb-3">
+            <select class="form-select mb-3" name="id_um">
               <%
                 for (UniteMesure um : all) { %>
                   <option value="<%= um.getIdUniteMesure() %>"><%= um.getLibelle() %></option>

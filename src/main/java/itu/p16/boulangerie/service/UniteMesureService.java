@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UniteMesureService {
@@ -18,5 +19,9 @@ public class UniteMesureService {
 
     public List<UniteMesure> getAll() {
         return uniteMesureRepository.findAll();
+    }
+
+    public Optional<UniteMesure> getById(Integer id) {
+        return uniteMesureRepository.findById(id);
     }
 }
