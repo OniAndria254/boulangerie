@@ -1,5 +1,6 @@
-<%@ page import="itu.p16.boulangerie.entity.UniteMesure" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="itu.p16.boulangerie.entity.UniteMesure" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -21,7 +22,7 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Default</label>
+            <label class="form-label">Unite de mesure</label>
             <select class="form-select mb-3">
               <%
                 for (UniteMesure um : all) { %>
