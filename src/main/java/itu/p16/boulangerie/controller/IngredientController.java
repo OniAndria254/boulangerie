@@ -37,10 +37,10 @@ public class IngredientController {
     @PostMapping("/add")
     public String addIngredient(
             @RequestParam("nom") String nom,
-            @RequestParam("id_um") String id_um
+            @RequestParam("id_um") Integer id_um
     ) {
         // Récupérer l'unité de mesure via son ID
-        Optional<UniteMesure> uniteMesureOptional = uniteMesureService.getById(Integer.parseInt(id_um));
+        Optional<UniteMesure> uniteMesureOptional = uniteMesureService.getById(id_um);
 
         if (uniteMesureOptional.isPresent()) {
             // Créer un nouvel ingrédient et définir ses propriétés

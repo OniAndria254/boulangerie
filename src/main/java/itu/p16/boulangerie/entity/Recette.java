@@ -17,7 +17,7 @@ public class Recette {
     private Integer idProduit;
     @Basic
     @Column(name = "quantite", nullable = false, precision = 2)
-    private BigDecimal quantite;
+    private Double quantite;
     @ManyToOne
     @JoinColumn(name = "id_ingredient", referencedColumnName = "id_ingredient", nullable = false)
     private Ingredient ingredientByIdIngredient;
@@ -41,35 +41,12 @@ public class Recette {
         this.idProduit = idProduit;
     }
 
-    public BigDecimal getQuantite() {
+    public Double getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(BigDecimal quantite) {
+    public void setQuantite(Double quantite) {
         this.quantite = quantite;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Recette recette = (Recette) o;
-
-        if (idIngredient != null ? !idIngredient.equals(recette.idIngredient) : recette.idIngredient != null)
-            return false;
-        if (idProduit != null ? !idProduit.equals(recette.idProduit) : recette.idProduit != null) return false;
-        if (quantite != null ? !quantite.equals(recette.quantite) : recette.quantite != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idIngredient != null ? idIngredient.hashCode() : 0;
-        result = 31 * result + (idProduit != null ? idProduit.hashCode() : 0);
-        result = 31 * result + (quantite != null ? quantite.hashCode() : 0);
-        return result;
     }
 
     public Ingredient getIngredientByIdIngredient() {
