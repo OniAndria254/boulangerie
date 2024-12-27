@@ -93,6 +93,9 @@
                             <li class="nav-item">
                                 <a href="/produit/add" class="nav-link">Produit</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/production/add" class="nav-link">Production</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -115,6 +118,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/produit/list" class="nav-link">Produit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/production/list" class="nav-link">Production</a>
                             </li>
                         </ul>
                     </div>
