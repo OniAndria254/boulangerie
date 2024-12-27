@@ -46,7 +46,7 @@ public class ProductionController {
         production.setDateProduction(java.sql.Date.valueOf(dateProduction));
         production.setProduitByIdProduit(produitService.getById(idProduit).orElseThrow(() -> new RuntimeException("Produit non trouvé")));
         productionService.save(production);
-        return "redirect:/produit/list";
+        return "redirect:/production/list";
     }
 
 
