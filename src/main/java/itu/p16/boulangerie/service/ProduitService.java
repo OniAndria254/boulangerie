@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProduitService {
@@ -20,5 +21,9 @@ public class ProduitService {
 
     public List<Produit> getAll() {
         return produitRepository.findAll();
+    }
+
+    public Optional<Produit> getById(Integer id) {
+        return produitRepository.findById(id);
     }
 }
