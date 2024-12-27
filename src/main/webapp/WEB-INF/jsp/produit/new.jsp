@@ -14,7 +14,7 @@
           </div>
           <div class="mb-3">
             <label for="prix_vente" class="form-label">Prix de vente</label>
-            <input type="text" class="form-control" id="prix_vente" name="prix_vente">
+            <input type="number" class="form-control" id="prix_vente" name="prix_vente">
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Ajouter</button>
