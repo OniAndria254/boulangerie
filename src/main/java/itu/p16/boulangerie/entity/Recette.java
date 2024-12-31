@@ -5,40 +5,31 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@IdClass(RecettePK.class)
+
 public class Recette {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id_ingredient", nullable = false)
-    private Integer idIngredient;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id_produit", nullable = false)
-    private Integer idProduit;
+    @EmbeddedId
+    private RecettePK id;
+
     @Basic
     @Column(name = "quantite", nullable = false, precision = 2)
     private Double quantite;
+
     @ManyToOne
+    @MapsId("idIngredient") // Correspond au champ idIngredient dans RecettePK
     @JoinColumn(name = "id_ingredient", referencedColumnName = "id_ingredient", nullable = false)
     private Ingredient ingredientByIdIngredient;
+
     @ManyToOne
+    @MapsId("idProduit") // Correspond au champ idProduit dans RecettePK
     @JoinColumn(name = "id_produit", referencedColumnName = "id_produit", nullable = false)
     private Produit produitByIdProduit;
 
-    public Integer getIdIngredient() {
-        return idIngredient;
+    public RecettePK getId() {
+        return id;
     }
 
-    public void setIdIngredient(Integer idIngredient) {
-        this.idIngredient = idIngredient;
-    }
-
-    public Integer getIdProduit() {
-        return idProduit;
-    }
-
-    public void setIdProduit(Integer idProduit) {
-        this.idProduit = idProduit;
+    public void setId(RecettePK id) {
+        this.id = id;
     }
 
     public Double getQuantite() {

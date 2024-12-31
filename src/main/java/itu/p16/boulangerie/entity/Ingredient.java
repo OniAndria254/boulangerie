@@ -2,7 +2,6 @@ package itu.p16.boulangerie.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -18,7 +17,7 @@ public class Ingredient {
     @JoinColumn(name = "id_unite_mesure", referencedColumnName = "id_unite_mesure", nullable = false)
     private UniteMesure uniteMesureByIdUniteMesure;
     @OneToMany(mappedBy = "ingredientByIdIngredient")
-    private List<MvtStockFille> mvtStockFillesByIdIngredient;
+    private List<StockIngredientFille> stockIngredientFillesByIdIngredient;
     @OneToMany(mappedBy = "ingredientByIdIngredient")
     private List<Recette> recettesByIdIngredient;
 
@@ -47,12 +46,12 @@ public class Ingredient {
         this.uniteMesureByIdUniteMesure = uniteMesureByIdUniteMesure;
     }
 
-    public List<MvtStockFille> getMvtStockFillesByIdIngredient() {
-        return mvtStockFillesByIdIngredient;
+    public List<StockIngredientFille> getMvtStockFillesByIdIngredient() {
+        return stockIngredientFillesByIdIngredient;
     }
 
-    public void setMvtStockFillesByIdIngredient(List<MvtStockFille> mvtStockFillesByIdIngredient) {
-        this.mvtStockFillesByIdIngredient = mvtStockFillesByIdIngredient;
+    public void setMvtStockFillesByIdIngredient(List<StockIngredientFille> stockIngredientFillesByIdIngredient) {
+        this.stockIngredientFillesByIdIngredient = stockIngredientFillesByIdIngredient;
     }
 
     public List<Recette> getRecettesByIdIngredient() {
