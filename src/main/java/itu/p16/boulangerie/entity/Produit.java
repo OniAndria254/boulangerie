@@ -3,8 +3,9 @@ package itu.p16.boulangerie.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Produit {
@@ -22,6 +23,8 @@ public class Produit {
     private List<Production> productionsByIdProduit;
     @OneToMany(mappedBy = "produitByIdProduit")
     private List<Recette> recettesByIdProduit;
+    @OneToMany(mappedBy = "produitByIdProduit")
+    private List<StockProduitFille> stockProduitFillesByIdProduit;
 
     public Integer getIdProduit() {
         return idProduit;
@@ -46,7 +49,6 @@ public class Produit {
     public void setPrixVente(Double prixVente) {
         this.prixVente = prixVente;
     }
-
     public List<Production> getProductionsByIdProduit() {
         return productionsByIdProduit;
     }
@@ -55,11 +57,32 @@ public class Produit {
         this.productionsByIdProduit = productionsByIdProduit;
     }
 
-    public Collection<Recette> getRecettesByIdProduit() {
+    public List<Recette> getRecettesByIdProduit() {
         return recettesByIdProduit;
     }
 
     public void setRecettesByIdProduit(List<Recette> recettesByIdProduit) {
         this.recettesByIdProduit = recettesByIdProduit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produit produit = (Produit) o;
+        return Objects.equals(idProduit, produit.idProduit) && Objects.equals(nom, produit.nom) && Objects.equals(prixVente, produit.prixVente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProduit, nom, prixVente);
+    }
+
+    public List<StockProduitFille> getStockProduitFillesByIdProduit() {
+        return stockProduitFillesByIdProduit;
+    }
+
+    public void setStockProduitFillesByIdProduit(List<StockProduitFille> stockProduitFillesByIdProduit) {
+        this.stockProduitFillesByIdProduit = stockProduitFillesByIdProduit;
     }
 }
