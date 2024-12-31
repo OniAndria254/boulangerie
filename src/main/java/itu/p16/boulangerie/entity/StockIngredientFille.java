@@ -3,8 +3,8 @@ package itu.p16.boulangerie.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "mvt_stock_fille", schema = "public", catalog = "boulangerie")
-public class MvtStockFille {
+@Table(name = "stock_ingredient_fille", schema = "public", catalog = "boulangerie")
+public class StockIngredientFille {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_fille", nullable = false)
@@ -15,7 +15,7 @@ public class MvtStockFille {
     private Ingredient ingredientByIdIngredient;
     @ManyToOne
     @JoinColumn(name = "id_mere", referencedColumnName = "id_mere", nullable = false)
-    private MvtStockMere mvtStockMereByIdMere;
+    private StockIngredientMere mvtStockMereByIdMere;
 
     public Integer getIdFille() {
         return idFille;
@@ -33,11 +33,11 @@ public class MvtStockFille {
         this.ingredientByIdIngredient = ingredientByIdIngredient;
     }
 
-    public MvtStockMere getMvtStockMereByIdMere() {
+    public StockIngredientMere getMvtStockMereByIdMere() {
         return mvtStockMereByIdMere;
     }
 
-    public void setMvtStockMereByIdMere(MvtStockMere mvtStockMereByIdMere) {
-        this.mvtStockMereByIdMere = mvtStockMereByIdMere;
+    public void setMvtStockMereByIdMere(StockIngredientMere stockMereByIdIngredientMere) {
+        this.mvtStockMereByIdMere = stockMereByIdIngredientMere;
     }
 }

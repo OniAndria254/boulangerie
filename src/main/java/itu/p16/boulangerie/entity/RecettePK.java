@@ -9,13 +9,16 @@ import java.io.Serializable;
 
 public class RecettePK implements Serializable {
     @Column(name = "id_ingredient", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idIngredient;
     @Column(name = "id_produit", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduit;
+
+    public RecettePK() {}
+
+    public RecettePK(Integer idIngredient, Integer idProduit) {
+        this.idIngredient = idIngredient;
+        this.idProduit = idProduit;
+    }
 
     public Integer getIdIngredient() {
         return idIngredient;

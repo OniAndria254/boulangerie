@@ -6,8 +6,8 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "mvt_stock_mere", schema = "public", catalog = "boulangerie")
-public class MvtStockMere {
+@Table(name = "stock_ingredient_mere", schema = "public", catalog = "boulangerie")
+public class StockIngredientMere {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_mere", nullable = false)
@@ -16,7 +16,7 @@ public class MvtStockMere {
     @Column(name = "daty", nullable = true)
     private Date daty;
     @OneToMany(mappedBy = "mvtStockMereByIdMere")
-    private Collection<MvtStockFille> mvtStockFillesByIdMere;
+    private Collection<StockIngredientFille> stockIngredientFillesByIdMere;
 
     public Integer getIdMere() {
         return idMere;
@@ -39,7 +39,7 @@ public class MvtStockMere {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MvtStockMere that = (MvtStockMere) o;
+        StockIngredientMere that = (StockIngredientMere) o;
 
         if (idMere != null ? !idMere.equals(that.idMere) : that.idMere != null) return false;
         if (daty != null ? !daty.equals(that.daty) : that.daty != null) return false;
@@ -54,11 +54,11 @@ public class MvtStockMere {
         return result;
     }
 
-    public Collection<MvtStockFille> getMvtStockFillesByIdMere() {
-        return mvtStockFillesByIdMere;
+    public Collection<StockIngredientFille> getMvtStockFillesByIdMere() {
+        return stockIngredientFillesByIdMere;
     }
 
-    public void setMvtStockFillesByIdMere(Collection<MvtStockFille> mvtStockFillesByIdMere) {
-        this.mvtStockFillesByIdMere = mvtStockFillesByIdMere;
+    public void setMvtStockFillesByIdMere(Collection<StockIngredientFille> stockIngredientFillesByIdMere) {
+        this.stockIngredientFillesByIdMere = stockIngredientFillesByIdMere;
     }
 }
