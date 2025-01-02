@@ -147,6 +147,14 @@
                             <li class="nav-item">
                                 <a href="/stockIngredient/add" class="nav-link">Approvisionnement</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="/etatStock/ingredientStock" class="nav-link">Ingredient</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/etatStock/produitStock" class="nav-link">Produit</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

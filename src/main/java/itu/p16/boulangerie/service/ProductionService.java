@@ -68,6 +68,7 @@ public class ProductionService {
             Double quantiteNecessaire = recette.getQuantite() * production.getQuantiteProduite();
 
             StockIngredientFille sortieStock = new StockIngredientFille();
+            sortieStock.setEntree(0.0);
             sortieStock.setSortie(quantiteNecessaire);
             sortieStock.setIngredientByIdIngredient(ingredientService.getById(idIngredient).orElseThrow());
             sortieStock.setStockIngredientMereByIdMere(stockIngredientMereRepository.findById(production.getProduitByIdProduit().getIdProduit()).orElseThrow());

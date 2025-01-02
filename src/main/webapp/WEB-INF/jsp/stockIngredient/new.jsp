@@ -35,7 +35,7 @@
 
           <button type="button" class="btn btn-success" id="addIngredientBtn">Ajouter un autre ingrédient</button>
           <button type="button" class="btn btn-primary me-2" id="submitFormBtn">Enregistrer</button>
-          <button type="button" class="btn btn-secondary" onclick="window.location.href='/stock_ingredient_fille/list';">Annuler</button>
+          <button type="button" class="btn btn-secondary" onclick="window.location.href='/etatStock/ingredientStock';">Annuler</button>
         </form>
 
       </div>
@@ -94,7 +94,7 @@
             .then(response => {
               if (response.ok) {
                 alert('Stock ajouté avec succès');
-                window.location.href = '/stock_ingredient_fille/list';
+                window.location.href = '/etatStock/ingredientStock';
               } else {
                 response.text().then(text => {
                   try {
