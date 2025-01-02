@@ -5,7 +5,16 @@
 
 <%
   List<Produit> all = (List<Produit>) request.getAttribute("all");
+  String error = (String) request.getAttribute("error");
+  if(error != null)
+  {
+    %>
+<div class="alert alert-danger" role="alert"><%= error%></div>
+<%
+  }
 %>
+
+
 
 
 <div class="row">
@@ -38,7 +47,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Ajouter</button>
-          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-secondary">Annuler</button>
         </form>
 
       </div>

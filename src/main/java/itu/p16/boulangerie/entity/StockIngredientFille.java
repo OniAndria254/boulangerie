@@ -10,12 +10,19 @@ public class StockIngredientFille {
     @Column(name = "id_fille", nullable = false)
     private Integer idFille;
 
+    @Basic
+    @Column(name = "entree", nullable = true)
+    private Double entree;
+    @Basic
+    @Column(name = "sortie", nullable = true)
+    private Double sortie;
+
     @ManyToOne
     @JoinColumn(name = "id_ingredient", referencedColumnName = "id_ingredient", nullable = false)
     private Ingredient ingredientByIdIngredient;
     @ManyToOne
     @JoinColumn(name = "id_mere", referencedColumnName = "id_mere", nullable = false)
-    private StockIngredientMere mvtStockMereByIdMere;
+    private StockIngredientMere stockIngredientMereByIdMere;
 
     public Integer getIdFille() {
         return idFille;
@@ -33,11 +40,27 @@ public class StockIngredientFille {
         this.ingredientByIdIngredient = ingredientByIdIngredient;
     }
 
-    public StockIngredientMere getMvtStockMereByIdMere() {
-        return mvtStockMereByIdMere;
+    public StockIngredientMere getStockIngredientMereByIdMere() {
+        return stockIngredientMereByIdMere;
     }
 
-    public void setMvtStockMereByIdMere(StockIngredientMere stockMereByIdIngredientMere) {
-        this.mvtStockMereByIdMere = stockMereByIdIngredientMere;
+    public void setStockIngredientMereByIdMere(StockIngredientMere stockMereByIdIngredientMere) {
+        this.stockIngredientMereByIdMere = stockMereByIdIngredientMere;
+    }
+
+    public Double getEntree() {
+        return entree;
+    }
+
+    public void setEntree(Double entree) {
+        this.entree = entree;
+    }
+
+    public Double getSortie() {
+        return sortie;
+    }
+
+    public void setSortie(Double sortie) {
+        this.sortie = sortie;
     }
 }

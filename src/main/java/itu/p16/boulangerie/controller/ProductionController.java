@@ -36,7 +36,7 @@ public class ProductionController {
     }
 
     @PostMapping("/add")
-    public String addProduction(
+    public ModelAndView addProduction(
             @RequestParam("quantite_produite") Integer quantiteProduite,
             @RequestParam("date_production") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateProduction,
             @RequestParam("id_produit") Integer idProduit
@@ -45,16 +45,31 @@ public class ProductionController {
         production.setQuantiteProduite(quantiteProduite);
         production.setDateProduction(java.sql.Date.valueOf(dateProduction));
         production.setProduitByIdProduit(produitService.getById(idProduit).orElseThrow(() -> new RuntimeException("Produit non trouvé")));
-        productionService.save(production);
-        return "redirect:/production/list";
+        try {
+            productionService.save(production);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            ModelAndView mv = new ModelAndView("layout");
+            List<Produit> produits = produitService.getAll();
+            mv.addObject("all", produits);
+            mv.addObject("error", e.getMessage());
+            mv.addObject("page", "production/new");
+            return mv;
+        }
+        ModelAndView mv = new ModelAndView("layout");
+        List<Production> productions = productionService.getAll();
+        mv.addObject("all", productions);
+        mv.addObject("page", "production/list");
+        return mv;
     }
 
 
     @GetMapping("/list")
     public ModelAndView showAllProduction() {
         ModelAndView mv = new ModelAndView("layout");
-        List<Production> production = productionService.getAll();
-        mv.addObject("all", production);
+        List<Production> productions = productionService.getAll();
+        mv.addObject("all", productions);
         mv.addObject("page", "production/list");
         return mv;
     }
