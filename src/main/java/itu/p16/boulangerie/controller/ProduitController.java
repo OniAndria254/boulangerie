@@ -1,5 +1,6 @@
 package itu.p16.boulangerie.controller;
 
+import itu.p16.boulangerie.entity.Ingredient;
 import itu.p16.boulangerie.entity.Produit;
 import itu.p16.boulangerie.entity.UniteMesure;
 import itu.p16.boulangerie.service.ProduitService;
@@ -40,11 +41,49 @@ public class ProduitController {
     }
 
     @GetMapping("/list")
-    public ModelAndView showAllProducts() {
+    public ModelAndView listProduits(
+            @RequestParam(value = "nom", required = false) String nom,
+            @RequestParam(value = "prixMin", required = false) Double prixMin,
+            @RequestParam(value = "prixMax", required = false) Double prixMax) {
         ModelAndView mv = new ModelAndView("layout");
-        List<Produit> produits = produitService.getAll();
-        mv.addObject("all", produits);
         mv.addObject("page", "produit/list");
+
+        List<Produit> produits = produitService.findProduitsByCriteria(nom, prixMin, prixMax);
+        mv.addObject("all", produits);
+
         return mv;
+    }
+
+
+    @GetMapping("/update")
+    public ModelAndView showUpdateForm(@RequestParam("id") Integer id) {
+        ModelAndView mv = new ModelAndView("layout");
+        mv.addObject("page", "produit/update");
+        Produit produit = produitService.getById(id).orElseThrow();
+        mv.addObject("produit", produit);
+        return mv;
+    }
+
+    @GetMapping("/delete")
+    public String deleteProduit(@RequestParam("id") Integer id) {
+        try {
+            produitService.deleteById(id);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la suppression du produit : " + e.getMessage());
+        }
+        return "redirect:/produit/list";
+    }
+
+
+    @PostMapping("/update")
+    public String updateProduit(
+            @RequestParam("id") Integer id,
+            @RequestParam("nom") String nom,
+            @RequestParam("prix_vente") Double prix_vente) {
+        Produit produit = produitService.getById(id).orElseThrow();
+        produit.setNom(nom);
+        produit.setPrixVente(prix_vente);
+        produitService.save(produit);
+        return "redirect:/produit/list";
     }
 }

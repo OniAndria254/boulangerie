@@ -26,4 +26,16 @@ public class ProduitService {
     public Optional<Produit> getById(Integer id) {
         return produitRepository.findById(id);
     }
+
+    public void deleteById(Integer id) {
+        if (produitRepository.existsById(id)) {
+            produitRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
+    }
+
+    public List<Produit> findProduitsByCriteria(String nom, Double prixMin, Double prixMax) {
+        return produitRepository.findByCriteria(nom, prixMin, prixMax);
+    }
 }

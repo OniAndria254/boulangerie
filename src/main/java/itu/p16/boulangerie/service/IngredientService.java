@@ -24,4 +24,11 @@ public class IngredientService {
     }
 
     public Optional<Ingredient> getById(Integer id) { return ingredientRepository.findById(id); }
+    public void deleteById(Integer id) {
+        if (ingredientRepository.existsById(id)) {
+            ingredientRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Ingredient not found with id: " + id);
+        }
+    }
 }

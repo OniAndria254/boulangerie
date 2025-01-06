@@ -24,6 +24,7 @@
               <th>#</th>
               <th>Nom</th>
               <th>Unite de mesure</th>
+              <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -31,14 +32,23 @@
               for (Ingredient ig : all) {
             %>
             <tr>
-              <td><%= ig.getIdIngredient()%></td>
-              <td><%= ig.getNom()%></td>
-              <td><%= ig.getUniteMesureByIdUniteMesure().getLibelle()%></td>
+              <td><%= ig.getIdIngredient() %></td>
+              <td><%= ig.getNom() %></td>
+              <td><%= ig.getUniteMesureByIdUniteMesure().getLibelle() %></td>
+              <td>
+                <a href="/ingredient/update?id=<%= ig.getIdIngredient() %>" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="/ingredient/delete?id=<%= ig.getIdIngredient() %>"
+                   class="btn btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')">
+                  Supprimer
+                </a>
+              </td>
             </tr>
             <%
               }
             %>
             </tbody>
+
           </table>
         </div>
       </div>
