@@ -130,7 +130,7 @@ INSERT INTO unite_mesure (libelle, description) VALUES
 -- Insérer des catégories
 INSERT INTO categorie (nom) VALUES 
 ('Pain'),
-('Pâtisserie'),
+('Patisserie'),
 ('Viennoiserie');
 
 -- Insérer des produits
