@@ -96,4 +96,8 @@ public class ProductionService {
     public List<Production> getAll() {
         return productionRepository.findAll();
     }
+
+    public List<Production> findByCriteria(Integer idIngredient, Integer idCategorie) {
+        return productionRepository.findByCriteria(idIngredient, idCategorie);
+    }
 }

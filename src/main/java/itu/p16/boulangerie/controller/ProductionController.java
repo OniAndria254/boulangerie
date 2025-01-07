@@ -1,7 +1,11 @@
 package itu.p16.boulangerie.controller;
 
+import itu.p16.boulangerie.entity.Categorie;
+import itu.p16.boulangerie.entity.Ingredient;
 import itu.p16.boulangerie.entity.Production;
 import itu.p16.boulangerie.entity.Produit;
+import itu.p16.boulangerie.service.CategorieService;
+import itu.p16.boulangerie.service.IngredientService;
 import itu.p16.boulangerie.service.ProductionService;
 import itu.p16.boulangerie.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,10 @@ public class ProductionController {
     private ProductionService productionService;
     @Autowired
     private ProduitService produitService;
+    @Autowired
+    private CategorieService categorieService;
+    @Autowired
+    private IngredientService ingredientService;
 
     @GetMapping("/add")
     public ModelAndView showProductionForm() {
@@ -59,6 +67,10 @@ public class ProductionController {
         }
         ModelAndView mv = new ModelAndView("layout");
         List<Production> productions = productionService.getAll();
+        List<Categorie> categories = categorieService.getAll();
+        List<Ingredient> ingredients = ingredientService.getAll();
+        mv.addObject("categories", categories);
+        mv.addObject("ingredients", ingredients);
         mv.addObject("all", productions);
         mv.addObject("page", "production/list");
         return mv;
@@ -66,9 +78,14 @@ public class ProductionController {
 
 
     @GetMapping("/list")
-    public ModelAndView showAllProduction() {
+    public ModelAndView showAllProduction(@RequestParam(required = false) Integer idIngredient,
+                                          @RequestParam(required = false) Integer idCategorie) {
         ModelAndView mv = new ModelAndView("layout");
-        List<Production> productions = productionService.getAll();
+        List<Categorie> categories = categorieService.getAll();
+        List<Ingredient> ingredients = ingredientService.getAll();
+        mv.addObject("categories", categories);
+        mv.addObject("ingredients", ingredients);
+        List<Production> productions = productionService.findByCriteria(idIngredient, idCategorie);
         mv.addObject("all", productions);
         mv.addObject("page", "production/list");
         return mv;
