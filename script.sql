@@ -135,9 +135,9 @@ INSERT INTO categorie (nom) VALUES
 
 -- Insérer des produits
 INSERT INTO produit (nom, prix_vente, Id_categorie) VALUES 
-('Baguette', 0.80, 1),
-('Croissant', 1.20, 3),
-('Éclair au chocolat', 2.50, 2);
+('Baguette', 1000, 1),
+('Croissant', 1200, 3),
+('Eclair au chocolat', 2000, 2);
 
 -- Insérer des ingrédients
 INSERT INTO ingredient (nom, Id_unite_mesure) VALUES 
