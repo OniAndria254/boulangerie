@@ -72,6 +72,7 @@
                             <th>Quantite Produite</th>
                             <th>Date de production</th>
                             <th>Produit</th>
+                            <th>Catégorie</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,6 +83,7 @@
                             <td><%= pc.getQuantiteProduite()%></td>
                             <td><%= pc.getDateProduction()%></td>
                             <td><%= pc.getProduitByIdProduit().getNom()%></td>
+                            <td><%= pc.getProduitByIdProduit().getCategorieByIdCategorie().getNom()%></td>
                         </tr>
                         <%
                             }
