@@ -1,4 +1,6 @@
-<%@ page import="itu.p16.boulangerie.entity.Produit" %><%--
+<%@ page import="itu.p16.boulangerie.entity.Produit" %>
+<%@ page import="itu.p16.boulangerie.entity.Categorie" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: onian
   Date: 06/01/2025
@@ -9,6 +11,7 @@
 
 <%
     Produit produit = (Produit) request.getAttribute("produit");
+    List<Categorie> all = (List<Categorie>) request.getAttribute("all");
 %>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -28,6 +31,21 @@
                         <input type="number" class="form-control" id="prix_vente" name="prix_vente" value="<%= produit.getPrixVente() %>">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="idCategorie" class="form-label">Catégorie</label>
+                        <select class="form-control" id="idCategorie" name="idCategorie">
+                            <%
+                                for (Categorie cat : all) {
+                                    boolean isSelected = produit.getCategorieByIdCategorie().getIdCategorie().equals(cat.getIdCategorie());
+                            %>
+                            <option value="<%= cat.getIdCategorie() %>" <%= isSelected ? "selected" : "" %>>
+                                <%= cat.getNom() %>
+                            </option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Mettre à jour</button>
                 </form>
 

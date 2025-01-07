@@ -16,13 +16,22 @@ CREATE TABLE stock_ingredient_mere(
    PRIMARY KEY(Id_mere)
 );
 
-CREATE TABLE produit(
-   Id_produit SERIAL,
-   nom VARCHAR(50)  NOT NULL,
-   prix_vente NUMERIC(15,2)   NOT NULL,
-   PRIMARY KEY(Id_produit),
-   UNIQUE(nom)
+CREATE TABLE categorie(
+    Id_categorie SERIAL,
+    nom VARCHAR(50) ,
+    PRIMARY KEY(Id_categorie)
 );
+
+CREATE TABLE produit(
+    Id_produit SERIAL,
+    nom VARCHAR(50)  NOT NULL,
+    prix_vente NUMERIC(15,2)   NOT NULL,
+    Id_categorie INTEGER NOT NULL,
+    PRIMARY KEY(Id_produit),
+    UNIQUE(nom),
+    FOREIGN KEY(Id_categorie) REFERENCES categorie(Id_categorie)
+);
+
 
 CREATE TABLE production(
    Id_production SERIAL,

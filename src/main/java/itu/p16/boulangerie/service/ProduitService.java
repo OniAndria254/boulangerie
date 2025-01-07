@@ -35,7 +35,7 @@ public class ProduitService {
         }
     }
 
-    public List<Produit> findProduitsByCriteria(String nom, Double prixMin, Double prixMax) {
-        return produitRepository.findByCriteria(nom, prixMin, prixMax);
+    public List<Produit> findByCriteria(String nom, Double prixMin, Double prixMax, Integer idCategorie) {
+        return produitRepository.findByCriteria(nom, prixMin, prixMax, idCategorie);
     }
 }

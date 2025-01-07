@@ -19,11 +19,13 @@ public interface ProduitRepository  extends JpaRepository<Produit, Integer> {
     @Query(value = "SELECT * FROM produit p WHERE " +
             "(:nom IS NULL OR p.nom ILIKE CONCAT('%', :nom, '%')) AND " +
             "(:prixMin IS NULL OR p.prix_vente >= :prixMin) AND " +
-            "(:prixMax IS NULL OR p.prix_vente <= :prixMax)",
+            "(:prixMax IS NULL OR p.prix_vente <= :prixMax) AND " +
+            "(:idCategorie IS NULL OR p.id_categorie = :idCategorie)",
             nativeQuery = true)
     List<Produit> findByCriteria(@Param("nom") String nom,
                                  @Param("prixMin") Double prixMin,
-                                 @Param("prixMax") Double prixMax);
+                                 @Param("prixMax") Double prixMax,
+                                 @Param("idCategorie") Integer idCategorie);
 
 
 
