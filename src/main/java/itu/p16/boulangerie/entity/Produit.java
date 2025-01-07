@@ -49,6 +49,11 @@ public class Produit {
     public void setPrixVente(Double prixVente) {
         this.prixVente = prixVente;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie", nullable = false)
+    private Categorie categorieByIdCategorie;
+
     public List<Production> getProductionsByIdProduit() {
         return productionsByIdProduit;
     }
@@ -63,6 +68,14 @@ public class Produit {
 
     public void setRecettesByIdProduit(List<Recette> recettesByIdProduit) {
         this.recettesByIdProduit = recettesByIdProduit;
+    }
+
+    public Categorie getCategorieByIdCategorie() {
+        return categorieByIdCategorie;
+    }
+
+    public void setCategorieByIdCategorie(Categorie categorieByIdCategorie) {
+        this.categorieByIdCategorie = categorieByIdCategorie;
     }
 
     @Override

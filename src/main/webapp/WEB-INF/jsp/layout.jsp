@@ -91,6 +91,9 @@
                                 <a href="/ingredient/add" class="nav-link">Ingrédient</a>
                             </li>
                             <li class="nav-item">
+                                <a href="/categorie/add" class="nav-link">Catégorie</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/produit/add" class="nav-link">Produit</a>
                             </li>
                             <li class="nav-item">
@@ -119,6 +122,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/ingredient/list" class="nav-link">Ingredient</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/categorie/list" class="nav-link">Catégorie</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/produit/list" class="nav-link">Produit</a>
