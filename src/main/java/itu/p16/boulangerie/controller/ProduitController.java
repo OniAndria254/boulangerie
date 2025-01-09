@@ -1,10 +1,8 @@
 package itu.p16.boulangerie.controller;
 
-import itu.p16.boulangerie.entity.Categorie;
-import itu.p16.boulangerie.entity.Ingredient;
-import itu.p16.boulangerie.entity.Produit;
-import itu.p16.boulangerie.entity.UniteMesure;
+import itu.p16.boulangerie.entity.*;
 import itu.p16.boulangerie.service.CategorieService;
+import itu.p16.boulangerie.service.NatureProduitService;
 import itu.p16.boulangerie.service.ProduitService;
 import itu.p16.boulangerie.service.UniteMesureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +22,16 @@ public class ProduitController {
     private ProduitService produitService;
     @Autowired
     private CategorieService categorieService;
+    @Autowired
+    private NatureProduitService natureProduitService;
 
     @GetMapping("/add")
     public ModelAndView showProductForm() {
         ModelAndView mv = new ModelAndView("layout");
+        List<NatureProduit> natureProduits = natureProduitService.getAll();
+
         List<Categorie> all = categorieService.getAll();
+        mv.addObject("natureProduits", natureProduits);
         mv.addObject("all", all);
         mv.addObject("page", "produit/new");
         return mv;

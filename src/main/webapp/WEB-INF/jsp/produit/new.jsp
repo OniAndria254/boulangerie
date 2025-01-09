@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="itu.p16.boulangerie.entity.Categorie" %>
+<%@ page import="itu.p16.boulangerie.entity.NatureProduit" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
