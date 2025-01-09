@@ -4,6 +4,7 @@
 
 <%
   List<Categorie> all = (List<Categorie>) request.getAttribute("all");
+  List<NatureProduit> np = (List<NatureProduit>) request.getAttribute("natureProduits");
 %>
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
@@ -28,6 +29,17 @@
               <%
                 for (Categorie cat : all) { %>
               <option value="<%= cat.getIdCategorie() %>"><%= cat.getNom() %></option>
+              <%}
+              %>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nature produit</label>
+            <select class="form-select mb-3" name="nature_produit">
+              <%
+                for (NatureProduit nap : np) { %>
+              <option value="<%= nap.getIdNatureProduit() %>"><%= nap.getNom() %></option>
               <%}
               %>
             </select>
