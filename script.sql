@@ -22,15 +22,24 @@ CREATE TABLE categorie(
     PRIMARY KEY(Id_categorie)
 );
 
+CREATE TABLE nature_produit(
+    id_nature_produit SERIAL,
+    nom VARCHAR(50)  NOT NULL,
+    PRIMARY KEY(id_nature_produit)
+);
+
 CREATE TABLE produit(
     Id_produit SERIAL,
     nom VARCHAR(50)  NOT NULL,
     prix_vente NUMERIC(15,2)   NOT NULL,
+    id_nature_produit INTEGER NOT NULL,
     Id_categorie INTEGER NOT NULL,
     PRIMARY KEY(Id_produit),
     UNIQUE(nom),
+    FOREIGN KEY(id_nature_produit) REFERENCES nature_produit(id_nature_produit),
     FOREIGN KEY(Id_categorie) REFERENCES categorie(Id_categorie)
 );
+
 
 
 CREATE TABLE production(
@@ -77,6 +86,16 @@ CREATE TABLE stock_ingredient_fille(
    PRIMARY KEY(Id_fille),
    FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
    FOREIGN KEY(Id_mere) REFERENCES stock_ingredient_mere(Id_mere)
+);
+
+
+CREATE TABLE vente(
+    Id_vente SERIAL,
+    quantite INTEGER NOT NULL,
+    date_vente DATE,
+    Id_produit INTEGER NOT NULL,
+    PRIMARY KEY(Id_vente),
+    FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
 CREATE TABLE recette(

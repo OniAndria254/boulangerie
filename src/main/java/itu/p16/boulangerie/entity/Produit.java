@@ -3,6 +3,7 @@ package itu.p16.boulangerie.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +26,20 @@ public class Produit {
     private List<Recette> recettesByIdProduit;
     @OneToMany(mappedBy = "produitByIdProduit")
     private List<StockProduitFille> stockProduitFillesByIdProduit;
+    @ManyToOne
+    @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie", nullable = false)
+    private Categorie categorieByIdCategorie;
+    @ManyToOne
+    @JoinColumn(name = "id_nature_produit", referencedColumnName = "id_nature_produit", nullable = false)
+    private NatureProduit natureProduitByIdNatureProduit;
+    @Basic
+    @Column(name = "id_nature_produit", nullable = false)
+    private Integer idNatureProduit;
+    @Basic
+    @Column(name = "id_categorie", nullable = false)
+    private Integer idCategorie;
+    @OneToMany(mappedBy = "produitByIdProduit")
+    private List<Vente> ventesByIdProduit;
 
     public Integer getIdProduit() {
         return idProduit;
@@ -50,10 +65,6 @@ public class Produit {
         this.prixVente = prixVente;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie", nullable = false)
-    private Categorie categorieByIdCategorie;
-
     public List<Production> getProductionsByIdProduit() {
         return productionsByIdProduit;
     }
@@ -78,6 +89,14 @@ public class Produit {
         this.categorieByIdCategorie = categorieByIdCategorie;
     }
 
+    public NatureProduit getNatureProduitByIdNatureProduit() {
+        return natureProduitByIdNatureProduit;
+    }
+
+    public void setNatureProduitByIdNatureProduit(NatureProduit natureProduitByIdNatureProduit) {
+        this.natureProduitByIdNatureProduit = natureProduitByIdNatureProduit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,5 +116,29 @@ public class Produit {
 
     public void setStockProduitFillesByIdProduit(List<StockProduitFille> stockProduitFillesByIdProduit) {
         this.stockProduitFillesByIdProduit = stockProduitFillesByIdProduit;
+    }
+
+    public Integer getIdNatureProduit() {
+        return idNatureProduit;
+    }
+
+    public void setIdNatureProduit(Integer idNatureProduit) {
+        this.idNatureProduit = idNatureProduit;
+    }
+
+    public Integer getIdCategorie() {
+        return idCategorie;
+    }
+
+    public void setIdCategorie(Integer idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
+    public List<Vente> getVentesByIdProduit() {
+        return ventesByIdProduit;
+    }
+
+    public void setVentesByIdProduit(Collection<Vente> ventesByIdProduit) {
+        this.ventesByIdProduit = ventesByIdProduit;
     }
 }
