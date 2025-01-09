@@ -42,11 +42,14 @@ public class ProductionService {
     @Transactional
     public Production save(Production production) {
         // Obtenir les recettes liées au produit à produire
-        Produit p = produitService.getById(production.getProduitByIdProduit().getIdProduit()).orElseThrow();
-        List<Recette> recettes = recetteRepository.findByProduitByIdProduit(p);
+        Optional<Produit> p = produitService.getById(production.getProduitByIdProduit().getIdProduit());
+        if (p.isEmpty()) {
+            throw new IllegalArgumentException("Le produit avec l'ID " + production.getProduitByIdProduit().getIdProduit() + " n'existe pas.");
+        }
 
+        List<Recette> recettes = recetteRepository.findByProduitByIdProduit(p.get());
         if (recettes.isEmpty()) {
-            throw new IllegalArgumentException("Aucune recette trouvée pour le produit: " + production.getProduitByIdProduit().getNom());
+            throw new IllegalArgumentException("Aucune recette trouvée pour le produit : " + p.get().getNom());
         }
 
         // Vérifier le stock pour chaque ingrédient nécessaire
@@ -62,6 +65,9 @@ public class ProductionService {
             }
         }
 
+        StockIngredientMere stockIngredientMere = new StockIngredientMere();
+        stockIngredientMere.setDaty(production.getDateProduction());
+        stockIngredientMere = stockIngredientMereRepository.save(stockIngredientMere);
         // Mettre à jour le stock des ingrédients consommés
         for (Recette recette : recettes) {
             Integer idIngredient = recette.getIngredientByIdIngredient().getIdIngredient();
@@ -71,7 +77,7 @@ public class ProductionService {
             sortieStock.setEntree(0.0);
             sortieStock.setSortie(quantiteNecessaire);
             sortieStock.setIngredientByIdIngredient(ingredientService.getById(idIngredient).orElseThrow());
-            sortieStock.setStockIngredientMereByIdMere(stockIngredientMereRepository.findById(production.getProduitByIdProduit().getIdProduit()).orElseThrow());
+            sortieStock.setStockIngredientMereByIdMere(stockIngredientMere);
             stockIngredientFilleRepository.save(sortieStock);
         }
 

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/production")
@@ -52,7 +53,11 @@ public class ProductionController {
         Production production = new Production();
         production.setQuantiteProduite(quantiteProduite);
         production.setDateProduction(java.sql.Date.valueOf(dateProduction));
-        production.setProduitByIdProduit(produitService.getById(idProduit).orElseThrow(() -> new RuntimeException("Produit non trouvé")));
+        Optional<Produit> p = produitService.getById(idProduit);
+        if (p.isEmpty()) {
+            throw new IllegalArgumentException("Le produit avec l'ID " + idProduit + " n'existe pas.");
+        }
+        production.setProduitByIdProduit(p.get());
         try {
             productionService.save(production);
         }

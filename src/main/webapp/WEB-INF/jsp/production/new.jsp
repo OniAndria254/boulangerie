@@ -27,7 +27,7 @@
         <form class="forms-sample" method="post" action="/production/add">
           <div class="mb-3">
             <label for="quantite_produite" class="form-label">Quantite produite</label>
-            <input type="text" class="form-control" id="quantite_produite" name="quantite_produite">
+            <input type="number" class="form-control" id="quantite_produite" name="quantite_produite">
           </div>
 
           <div class="mb-3">
