@@ -32,12 +32,7 @@ public class Produit {
     @ManyToOne
     @JoinColumn(name = "id_nature_produit", referencedColumnName = "id_nature_produit", nullable = false)
     private NatureProduit natureProduitByIdNatureProduit;
-    @Basic
-    @Column(name = "id_nature_produit", nullable = false)
-    private Integer idNatureProduit;
-    @Basic
-    @Column(name = "id_categorie", nullable = false)
-    private Integer idCategorie;
+
     @OneToMany(mappedBy = "produitByIdProduit")
     private List<Vente> ventesByIdProduit;
 
@@ -97,19 +92,6 @@ public class Produit {
         this.natureProduitByIdNatureProduit = natureProduitByIdNatureProduit;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produit produit = (Produit) o;
-        return Objects.equals(idProduit, produit.idProduit) && Objects.equals(nom, produit.nom) && Objects.equals(prixVente, produit.prixVente);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idProduit, nom, prixVente);
-    }
-
     public List<StockProduitFille> getStockProduitFillesByIdProduit() {
         return stockProduitFillesByIdProduit;
     }
@@ -118,27 +100,11 @@ public class Produit {
         this.stockProduitFillesByIdProduit = stockProduitFillesByIdProduit;
     }
 
-    public Integer getIdNatureProduit() {
-        return idNatureProduit;
-    }
-
-    public void setIdNatureProduit(Integer idNatureProduit) {
-        this.idNatureProduit = idNatureProduit;
-    }
-
-    public Integer getIdCategorie() {
-        return idCategorie;
-    }
-
-    public void setIdCategorie(Integer idCategorie) {
-        this.idCategorie = idCategorie;
-    }
-
     public List<Vente> getVentesByIdProduit() {
         return ventesByIdProduit;
     }
 
-    public void setVentesByIdProduit(Collection<Vente> ventesByIdProduit) {
+    public void setVentesByIdProduit(List<Vente> ventesByIdProduit) {
         this.ventesByIdProduit = ventesByIdProduit;
     }
 }

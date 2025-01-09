@@ -9,8 +9,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="itu.p16.boulangerie.entity.Categorie" %>
+<%@ page import="itu.p16.boulangerie.entity.NatureProduit" %>
 <%
-    List<NatureProduit> natureProduits = (List<NatureProduit>) request.getAttribute("natureProduits");
+    List<NatureProduit> natureProduits = (List<NatureProduit>) request.getAttribute("all");
 %>
 
 

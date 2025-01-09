@@ -94,6 +94,9 @@
                                 <a href="/categorie/add" class="nav-link">Catégorie</a>
                             </li>
                             <li class="nav-item">
+                                <a href="/natureProduit/add" class="nav-link">Nature des produits</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/produit/add" class="nav-link">Produit</a>
                             </li>
                             <li class="nav-item">
@@ -104,9 +107,6 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/vente/add" class="nav-link">Vente</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/natureProduit/add" class="nav-link">Nature des produits</a>
                             </li>
                         </ul>
                     </div>
@@ -132,6 +132,9 @@
                                 <a href="/categorie/list" class="nav-link">Catégorie</a>
                             </li>
                             <li class="nav-item">
+                                <a href="/natureProduit/list" class="nav-link">Nature des produits</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/produit/list" class="nav-link">Produit</a>
                             </li>
                             <li class="nav-item">
@@ -143,9 +146,7 @@
                             <li class="nav-item">
                                 <a href="/vente/list" class="nav-link">Vente</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/natureProduit/list" class="nav-link">Nature des produits</a>
-                            </li>
+
                         </ul>
                     </div>
                 </li>

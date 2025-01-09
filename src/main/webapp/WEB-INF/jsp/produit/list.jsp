@@ -73,8 +73,8 @@
                             <th>Nom</th>
                             <th>Prix de vente</th>
                             <th>Catégorie</th>
-                            <th>Action</th>
                             <th>Nature Produit</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -86,7 +86,7 @@
                             <td><%= pt.getNom()%></td>
                             <td><%= pt.getPrixVente()%></td>
                             <td><%= pt.getCategorieByIdCategorie().getNom()%></td
-                            <td><%= pt.getNatureProduitByIdNatureProduit().getNom()%></td>
+                            <td></td>
 
                             <td>
                                 <a href="/produit/update?id=<%= pt.getIdProduit() %>" class="btn btn-warning btn-sm">Modifier</a>

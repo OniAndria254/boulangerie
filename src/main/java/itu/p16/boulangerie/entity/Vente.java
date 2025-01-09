@@ -17,9 +17,6 @@ public class Vente {
     @Basic
     @Column(name = "date_vente", nullable = true)
     private Date dateVente;
-    @Basic
-    @Column(name = "id_produit", nullable = false)
-    private Integer idProduit;
     @ManyToOne
     @JoinColumn(name = "id_produit", referencedColumnName = "id_produit", nullable = false)
     private Produit produitByIdProduit;
@@ -48,26 +45,6 @@ public class Vente {
         this.dateVente = dateVente;
     }
 
-    public Integer getIdProduit() {
-        return idProduit;
-    }
-
-    public void setIdProduit(Integer idProduit) {
-        this.idProduit = idProduit;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vente vente = (Vente) o;
-        return Objects.equals(idVente, vente.idVente) && Objects.equals(quantite, vente.quantite) && Objects.equals(dateVente, vente.dateVente) && Objects.equals(idProduit, vente.idProduit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idVente, quantite, dateVente, idProduit);
-    }
 
     public Produit getProduitByIdProduit() {
         return produitByIdProduit;

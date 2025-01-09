@@ -1,7 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="itu.p16.boulangerie.entity.Production" %>
-<%@ page import="itu.p16.boulangerie.entity.Categorie" %>
-<%@ page import="itu.p16.boulangerie.entity.Ingredient" %>
+<%@ page import="itu.p16.boulangerie.entity.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: onian
@@ -81,7 +79,7 @@
               for (Vente vt : all) {
             %>
             <tr>
-              <td><%= vt.getNom()%></td>
+              <td><%= vt.getProduitByIdProduit().getNom()%></td>
               <td><%= vt.getQuantite()%></td>
               <td><%= vt.getDateVente()%></td>
             </tr>

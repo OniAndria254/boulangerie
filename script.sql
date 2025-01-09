@@ -138,75 +138,82 @@ GROUP BY
 ORDER BY 
     p.nom;
 
-
-
--- Insérer des unités de mesure
+-- Ajout des unités de mesure
 INSERT INTO unite_mesure (libelle, description) VALUES 
-('Kg', 'Kilogramme'),
-('L', 'Litre'),
-('pc', 'Pièce');
+('kg', 'kilogramme'),
+('L', 'litre'),
+('pc', 'piece');
 
--- Insérer des catégories
+-- Ajout de catégories
 INSERT INTO categorie (nom) VALUES 
-('Pain'),
+('Viennoiserie'),
 ('Patisserie'),
-('Viennoiserie');
+('Sandwich');
 
--- Insérer des produits
-INSERT INTO produit (nom, prix_vente, Id_categorie) VALUES 
-('Baguette', 1000, 1),
-('Croissant', 1200, 3),
-('Eclair au chocolat', 2000, 2);
+-- Ajout de natures de produit
+INSERT INTO nature_produit (nom) VALUES 
+('nature'),
+('au chocolat'),
+('au jambon');
 
--- Insérer des ingrédients
+-- Ajout d'ingrédients
 INSERT INTO ingredient (nom, Id_unite_mesure) VALUES 
-('Farine', 1),
-('Eau', 2),
-('Levure', 1),
+('Farine', 1), -- Id_unite_mesure = kilogramme
+('Beurre', 1),
 ('Chocolat', 1),
-('Beurre', 1);
+('Jambon', 1),
+('Sel', 1),
+('Sucre', 1);
 
--- Insérer des stocks mère pour les ingrédients
-INSERT INTO stock_ingredient_mere (daty) VALUES 
-('2025-01-01'),
-('2025-01-02');
+-- Ajout des produits
+INSERT INTO produit (nom, prix_vente, id_nature_produit, Id_categorie) VALUES 
+('Croissant nature', 1500, 1, 1), -- Nature
+('Croissant au chocolat', 2000, 2, 1), -- Au chocolat
+('Croissant au jambon', 3000, 3, 1); -- Au jambon
 
--- Insérer des mouvements fille pour les ingrédients
-INSERT INTO stock_ingredient_fille (entree, sortie, Id_ingredient, Id_mere) VALUES 
-(50, 0, 1, 1),  -- 50 kg de farine ajoutés
-(30, 0, 2, 1),  -- 30 litres d'eau ajoutés
-(5, 0, 3, 1),   -- 5 kg de levure ajoutés
-(10, 0, 4, 1),  -- 10 kg de chocolat ajoutés
-(20, 0, 5, 1),  -- 20 kg de beurre ajoutés
-(0, 10, 1, 2),  -- 10 kg de farine retirés
-(0, 5, 2, 2);   -- 5 litres d'eau retirés
-
--- Insérer des stocks mère pour les produits
-INSERT INTO stock_produit_mere (daty) VALUES 
-('2025-01-01'),
-('2025-01-02');
-
--- Insérer des mouvements fille pour les produits
-INSERT INTO stock_produit_fille (entree, sortie, Id_mere, Id_produit) VALUES 
-(100, 0, 1, 1),  -- 100 baguettes ajoutées
-(50, 0, 1, 2),   -- 50 croissants ajoutés
-(30, 0, 1, 3),   -- 30 éclairs au chocolat ajoutés
-(0, 20, 2, 1),   -- 20 baguettes vendues
-(0, 10, 2, 2);   -- 10 croissants vendus
-
--- Insérer des recettes
+-- Ajout des recettes pour les produits
+-- Recette pour croissant nature
 INSERT INTO recette (Id_ingredient, Id_produit, quantite) VALUES 
-(1, 1, 0.2),  -- 0.2 kg de farine pour une baguette
-(2, 1, 0.1),  -- 0.1 litre d'eau pour une baguette
-(3, 1, 0.02), -- 0.02 kg de levure pour une baguette
-(1, 2, 0.15), -- 0.15 kg de farine pour un croissant
-(5, 2, 0.05), -- 0.05 kg de beurre pour un croissant
-(1, 3, 0.1),  -- 0.1 kg de farine pour un éclair
-(4, 3, 0.05), -- 0.05 kg de chocolat pour un éclair
-(5, 3, 0.03); -- 0.03 kg de beurre pour un éclair
+(1, 1, 0.10), -- Farine
+(2, 1, 0.05), -- Beurre
+(5, 1, 0.002); -- Sel
 
--- Insérer des productions
-INSERT INTO production (quantite_produite, date_production, Id_produit) VALUES 
-(100, '2025-01-01', 1), -- 100 baguettes produites
-(50, '2025-01-01', 2),  -- 50 croissants produits
-(30, '2025-01-01', 3);  -- 30 éclairs au chocolat produits
+-- Recette pour croissant au chocolat
+INSERT INTO recette (Id_ingredient, Id_produit, quantite) VALUES 
+(1, 2, 0.10), -- Farine
+(2, 2, 0.05), -- Beurre
+(5, 2, 0.002), -- Sel
+(3, 2, 0.03); -- Chocolat
+
+-- Recette pour croissant au jambon
+INSERT INTO recette (Id_ingredient, Id_produit, quantite) VALUES 
+(1, 3, 0.10), -- Farine
+(2, 3, 0.05), -- Beurre
+(5, 3, 0.002), -- Sel
+(4, 3, 0.03); -- Jambon
+
+-- Ajout des stocks d'ingrédients (fille)
+INSERT INTO stock_ingredient_mere (daty) VALUES 
+('2025-01-01');
+
+INSERT INTO stock_ingredient_fille (entree, sortie, Id_ingredient, Id_mere) VALUES 
+(100, 0, 1, 1), -- Farine
+(50, 0, 2, 1),  -- Beurre
+(30, 0, 3, 1),  -- Chocolat
+(20, 0, 4, 1),  -- Jambon
+(10, 0, 5, 1);  -- Sel
+
+-- Ajout des stocks de produits (fille)
+INSERT INTO stock_produit_mere (daty) VALUES 
+('2025-01-02');
+
+INSERT INTO stock_produit_fille (entree, sortie, Id_produit, Id_mere) VALUES 
+(20, 0, 1, 1), -- Croissant nature
+(15, 0, 2, 1), -- Croissant au chocolat
+(10, 0, 3, 1); -- Croissant au jambon
+
+-- Ajout de ventes
+INSERT INTO vente (quantite, date_vente, Id_produit) VALUES 
+(5, '2025-01-03', 1), -- Vente de croissants nature
+(3, '2025-01-03', 2), -- Vente de croissants au chocolat
+(2, '2025-01-03', 3); -- Vente de croissants au jambon
