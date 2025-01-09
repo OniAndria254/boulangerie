@@ -102,7 +102,12 @@
                             <li class="nav-item">
                                 <a href="/production/add" class="nav-link">Production</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="/vente/add" class="nav-link">Vente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/natureProduit/add" class="nav-link">Nature des produits</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -135,7 +140,12 @@
                             <li class="nav-item">
                                 <a href="/production/list" class="nav-link">Production</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="/vente/list" class="nav-link">Vente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/natureProduit/list" class="nav-link">Nature des produits</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
