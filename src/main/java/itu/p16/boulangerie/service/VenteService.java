@@ -1,14 +1,11 @@
 package itu.p16.boulangerie.service;
 
 import itu.p16.boulangerie.entity.*;
-import itu.p16.boulangerie.repository.NatureProduitRepository;
 import itu.p16.boulangerie.repository.StockProduitFilleRepository;
 import itu.p16.boulangerie.repository.StockProduitMereRepository;
 import itu.p16.boulangerie.repository.VenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +25,12 @@ public class VenteService {
     @Transactional
     public Vente save(Vente vente) {
         // Vérifier le stock disponible pour le produit
-//        Integer stockDisponible = stockProduitFilleRepository.getStockDisponible(vente.getIdProduit());
-//
-//        // Vérifier si la quantité de la vente peut être déduite du stock
-//        if (stockDisponible == null || stockDisponible < vente.getQuantite()) {
-//            throw new IllegalArgumentException("Stock insuffisant pour le produit avec ID: " + vente.getIdProduit());
-//        }
+        Integer stockDisponible = stockProduitFilleRepository.getStockDisponible(vente.getProduitByIdProduit().getIdProduit());
+
+        // Vérifier si la quantité de la vente peut être déduite du stock
+        if (stockDisponible == null || stockDisponible < vente.getQuantite()) {
+            throw new IllegalArgumentException("Stock insuffisant pour le produit : " + vente.getProduitByIdProduit().getNom());
+        }
 
         // Insérer une sortie dans stock_produit_fille
         StockProduitMere stockProduitMere = new StockProduitMere();
@@ -58,8 +55,8 @@ public class VenteService {
 
     public Optional<Vente> getById(Integer id) { return venteRepository.findById(id); }
 
-    public List<Vente> findByCriteria(Integer idCategorie, Integer idNatureProduit) {
-        return venteRepository.findByCriteria(idCategorie, idNatureProduit);
+    public List<Vente> findByCriteria(Integer idCategorie, Integer idParfum) {
+        return venteRepository.findByCriteria(idCategorie, idParfum);
     }
 
 }

@@ -1,11 +1,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="itu.p16.boulangerie.entity.Categorie" %>
-<%@ page import="itu.p16.boulangerie.entity.NatureProduit" %>
+<%@ page import="itu.p16.boulangerie.entity.Parfum" %>
+<%@ page import="itu.p16.boulangerie.entity.Parfum" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
   List<Categorie> all = (List<Categorie>) request.getAttribute("all");
-  List<NatureProduit> np = (List<NatureProduit>) request.getAttribute("natureProduits");
+  List<Parfum> parfums = (List<Parfum>) request.getAttribute("parfums");
 %>
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
@@ -36,11 +37,11 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Nature produit</label>
-            <select class="form-select mb-3" name="nature_produit">
+            <label class="form-label">Parfum</label>
+            <select class="form-select mb-3" name="parfum">
               <%
-                for (NatureProduit nap : np) { %>
-              <option value="<%= nap.getIdNatureProduit() %>"><%= nap.getNom() %></option>
+                for (Parfum p : parfums) { %>
+              <option value="<%= p.getIdParfum() %>"><%= p.getNom() %></option>
               <%}
               %>
             </select>

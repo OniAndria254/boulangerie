@@ -2,9 +2,8 @@ package itu.p16.boulangerie.controller;
 
 import itu.p16.boulangerie.entity.*;
 import itu.p16.boulangerie.service.CategorieService;
-import itu.p16.boulangerie.service.NatureProduitService;
+import itu.p16.boulangerie.service.ParfumService;
 import itu.p16.boulangerie.service.ProduitService;
-import itu.p16.boulangerie.service.UniteMesureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +22,15 @@ public class ProduitController {
     @Autowired
     private CategorieService categorieService;
     @Autowired
-    private NatureProduitService natureProduitService;
+    private ParfumService parfumService;
 
-    @GetMapping("/add")
+    @GetMapping("/addProduit")
     public ModelAndView showProductForm() {
         ModelAndView mv = new ModelAndView("layout");
-        List<NatureProduit> natureProduits = natureProduitService.getAll();
+        List<Parfum> parfums = parfumService.getAll();
 
         List<Categorie> all = categorieService.getAll();
-        mv.addObject("natureProduits", natureProduits);
+        mv.addObject("parfums", parfums);
         mv.addObject("all", all);
         mv.addObject("page", "produit/new");
         return mv;
@@ -41,18 +40,21 @@ public class ProduitController {
     public String addProduct(
             @RequestParam("nom") String nom,
             @RequestParam("prix_vente") Double prix_vente,
-            @RequestParam("categorie") Integer id_categorie
+            @RequestParam("categorie") Integer id_categorie,
+            @RequestParam("parfum") Integer id_parfum
     ) {
+        Parfum parfum = parfumService.getById(id_parfum).orElseThrow();
         Produit produit = new Produit();
         Categorie categorie = categorieService.getById(id_categorie).orElseThrow();
         produit.setCategorieByIdCategorie(categorie);
+        produit.setParfumByIdParfum(parfum);
         produit.setNom(nom);
         produit.setPrixVente(prix_vente);
         produitService.save(produit);
-        return "redirect:/produit/list";
+        return "redirect:/produit/listProduit";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listProduit")
     public ModelAndView listProduits(
             @RequestParam(required = false) String nom,
             @RequestParam(required = false) Double prixMin,
@@ -74,8 +76,10 @@ public class ProduitController {
     public ModelAndView showUpdateForm(@RequestParam("id") Integer id) {
         ModelAndView mv = new ModelAndView("layout");
         mv.addObject("page", "produit/update");
+        List<Parfum> parfums = parfumService.getAll();
         List<Categorie> categories = categorieService.getAll();
         mv.addObject("all", categories);
+        mv.addObject("parfums", parfums);
         Produit produit = produitService.getById(id).orElseThrow();
         mv.addObject("produit", produit);
         return mv;
@@ -88,7 +92,7 @@ public class ProduitController {
         } catch (Exception e) {
             System.err.println("Erreur lors de la suppression du produit : " + e.getMessage());
         }
-        return "redirect:/produit/list";
+        return "redirect:/produit/listProduit";
     }
 
 
@@ -97,13 +101,16 @@ public class ProduitController {
             @RequestParam("id") Integer id,
             @RequestParam("nom") String nom,
             @RequestParam("prix_vente") Double prix_vente,
-            @RequestParam("idCategorie") Integer idCategorie) {
+            @RequestParam("idCategorie") Integer idCategorie,
+            @RequestParam("idParfum") Integer idParfum) {
         Produit produit = produitService.getById(id).orElseThrow();
         produit.setNom(nom);
         produit.setPrixVente(prix_vente);
         Categorie categorie = categorieService.getById(idCategorie).orElseThrow();
         produit.setCategorieByIdCategorie(categorie);
+        Parfum parfum = parfumService.getById(idParfum).orElseThrow();
+        produit.setParfumByIdParfum(parfum);
         produitService.save(produit);
-        return "redirect:/produit/list";
+        return "redirect:/produit/listProduit";
     }
 }

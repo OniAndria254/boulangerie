@@ -35,7 +35,7 @@ public class ProductionController {
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/add")
+    @GetMapping("/addProduction")
     public ModelAndView showProductionForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<Produit> produits = produitService.getAll();
@@ -82,7 +82,7 @@ public class ProductionController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/listProduction")
     public ModelAndView showAllProduction(@RequestParam(required = false) Integer idIngredient,
                                           @RequestParam(required = false) Integer idCategorie) {
         ModelAndView mv = new ModelAndView("layout");

@@ -13,7 +13,7 @@
 <%
   List<Vente> all = (List<Vente>) request.getAttribute("all");
   List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
-  List<NatureProduit> natureProduits = (List<NatureProduit>) request.getAttribute("natureProduits");
+  List<Parfum> parfums = (List<Parfum>) request.getAttribute("parfums");
 %>
 
 
@@ -22,7 +22,7 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Filtrer les ventes</h6>
-        <form method="get" action="/vente/list">
+        <form method="get" action="/vente/listVente">
           <div class="row">
             <div class="col-md-3">
               <select name="idCategorie" class="form-control">
@@ -38,13 +38,13 @@
             </div>
 
             <div class="col-md-3">
-              <select name="idNatureProduit" class="form-control">
-                <option value="">Toutes les natures des produits</option>
-                <% for (NatureProduit natureProduit : natureProduits) { %>
-                <option value="<%= natureProduit.getIdNatureProduit() %>"
-                        <%= (request.getParameter("idNatureProduit") != null &&
-                                request.getParameter("idNatureProduit").equals(String.valueOf(natureProduit.getIdNatureProduit()))) ? "selected" : "" %>>
-                  <%= natureProduit.getNom() %>
+              <select name="idParfum" class="form-control">
+                <option value="">Tous les parfums</option>
+                <% for (Parfum parfum : parfums) { %>
+                <option value="<%= parfum.getIdParfum() %>"
+                        <%= (request.getParameter("idParfum") != null &&
+                                request.getParameter("idParfum").equals(String.valueOf(parfum.getIdParfum()))) ? "selected" : "" %>>
+                  <%= parfum.getNom() %>
                 </option>
                 <% } %>
               </select>

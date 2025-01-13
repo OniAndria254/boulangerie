@@ -1,9 +1,7 @@
 package itu.p16.boulangerie.controller;
 
-import itu.p16.boulangerie.entity.Categorie;
-import itu.p16.boulangerie.entity.NatureProduit;
-import itu.p16.boulangerie.service.CategorieService;
-import itu.p16.boulangerie.service.NatureProduitService;
+import itu.p16.boulangerie.entity.Parfum;
+import itu.p16.boulangerie.service.ParfumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/natureProduit")
-public class NatureProduitController {
+@RequestMapping("/parfum")
+public class ParfumController {
     @Autowired
-    private NatureProduitService natureProduitService;
+    private ParfumService parfumService;
 
-    @GetMapping("/add")
+    @GetMapping("/addParfum")
     public ModelAndView showCategorieForm() {
         ModelAndView mv = new ModelAndView("layout");
-        mv.addObject("page", "natureProduit/new");
+        mv.addObject("page", "parfum/new");
         return mv;
     }
 
@@ -31,19 +29,19 @@ public class NatureProduitController {
     public String addUniteMesure(
             @RequestParam("nom") String nom
     ) {
-        NatureProduit natureProduit = new NatureProduit();
-        natureProduit.setNom(nom);
+        Parfum parfum = new Parfum();
+        parfum.setNom(nom);
 
-        NatureProduit insere = natureProduitService.save(natureProduit);
-        return "redirect:/natureProduit/list";
+        Parfum insere = parfumService.save(parfum);
+        return "redirect:/parfum/listParfum";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listParfum")
     public ModelAndView showAll() {
         ModelAndView mv = new ModelAndView("layout");
-        List<NatureProduit> natureProduits = natureProduitService.getAll();
-        mv.addObject("all", natureProduits);
-        mv.addObject("page", "natureProduit/list");
+        List<Parfum> parfums = parfumService.getAll();
+        mv.addObject("all", parfums);
+        mv.addObject("page", "parfum/list");
         return mv;
     }
 }

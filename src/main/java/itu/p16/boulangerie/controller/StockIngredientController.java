@@ -23,10 +23,11 @@ public class StockIngredientController {
     @Autowired
     private StockIngredientService stockIngredientService;
 
-    @GetMapping("/add")
+    @GetMapping("/insert")
     public ModelAndView showSIForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<Ingredient> all = ingredientService.getAll();
+        mv.addObject("all", all);
         mv.addObject("all", all);
         mv.addObject("page", "stockIngredient/new");
         return mv;

@@ -26,7 +26,7 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/add")
+    @GetMapping("/addIngredient")
     public ModelAndView showUMForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<UniteMesure> list = uniteMesureService.getAll();
@@ -52,14 +52,14 @@ public class IngredientController {
             // Sauvegarder l'ingrédient dans la base (ajouter un service pour cela)
             ingredientService.save(ingredient);
 
-            return "redirect:/ingredient/list"; // Redirige vers la liste des ingrédients
+            return "redirect:/ingredient/listIngredient"; // Redirige vers la liste des ingrédients
         } else {
             // Gérer le cas où l'unité de mesure n'existe pas
             return "redirect:/ingredient/add?error=unite_mesure_not_found";
         }
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listIngredient")
     public ModelAndView showAll() {
         ModelAndView mv = new ModelAndView("layout");
         List<Ingredient> ingredients = ingredientService.getAll();
@@ -87,7 +87,7 @@ public class IngredientController {
             // Gestion des erreurs (si nécessaire, vous pouvez ajouter une redirection avec un message d'erreur)
             System.err.println("Erreur lors de la suppression de l'ingrédient : " + e.getMessage());
         }
-        return "redirect:/ingredient/list"; // Redirection vers la liste des ingrédients
+        return "redirect:/ingredient/listIngredient"; // Redirection vers la liste des ingrédients
     }
 
 
@@ -101,6 +101,6 @@ public class IngredientController {
         UniteMesure um = uniteMesureService.getById(idUniteMesure).orElseThrow();
         ingredient.setUniteMesureByIdUniteMesure(um);
         ingredientService.save(ingredient);
-        return "redirect:/ingredient/list";
+        return "redirect:/ingredient/listIngredient";
     }
 }

@@ -2,11 +2,7 @@ package itu.p16.boulangerie.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Produit {
@@ -30,8 +26,8 @@ public class Produit {
     @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie", nullable = false)
     private Categorie categorieByIdCategorie;
     @ManyToOne
-    @JoinColumn(name = "id_nature_produit", referencedColumnName = "id_nature_produit", nullable = false)
-    private NatureProduit natureProduitByIdNatureProduit;
+    @JoinColumn(name = "id_parfum", referencedColumnName = "id_parfum", nullable = false)
+    private Parfum parfumByIdParfum;
 
     @OneToMany(mappedBy = "produitByIdProduit")
     private List<Vente> ventesByIdProduit;
@@ -84,12 +80,12 @@ public class Produit {
         this.categorieByIdCategorie = categorieByIdCategorie;
     }
 
-    public NatureProduit getNatureProduitByIdNatureProduit() {
-        return natureProduitByIdNatureProduit;
+    public Parfum getParfumByIdParfum() {
+        return parfumByIdParfum;
     }
 
-    public void setNatureProduitByIdNatureProduit(NatureProduit natureProduitByIdNatureProduit) {
-        this.natureProduitByIdNatureProduit = natureProduitByIdNatureProduit;
+    public void setParfumByIdParfum(Parfum parfumByIdParfum) {
+        this.parfumByIdParfum = parfumByIdParfum;
     }
 
     public List<StockProduitFille> getStockProduitFillesByIdProduit() {

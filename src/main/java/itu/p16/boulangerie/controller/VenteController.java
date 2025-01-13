@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/vente")
@@ -30,9 +29,9 @@ public class VenteController {
     @Autowired
     private VenteService venteService;
     @Autowired
-    private NatureProduitService natureProduitService;
+    private ParfumService parfumService;
 
-    @GetMapping("/add")
+    @GetMapping("/addVente")
     public ModelAndView showVenteForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<Produit> produits = produitService.getAll();
@@ -43,12 +42,13 @@ public class VenteController {
 
     @PostMapping("/add")
     public ModelAndView addVente(
+            @RequestParam("id_produit") Integer idProduit,
             @RequestParam("quantite_vendu") Integer quantiteVendu,
-            @RequestParam("date_vente") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateVente,
-            @RequestParam("id_produit") Integer idProduit
+            @RequestParam("date_vente") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateVente
     ) {
         Vente vente = new Vente();
         vente.setDateVente(Date.valueOf(dateVente));
+        vente.setQuantite(quantiteVendu);
         Produit p = produitService.getById(idProduit).orElseThrow();
 
         vente.setProduitByIdProduit(p);
@@ -68,24 +68,24 @@ public class VenteController {
 
         List<Vente> ventes = venteService.getAll();
         List<Categorie> categories = categorieService.getAll();
-        List<NatureProduit> natureProduits =natureProduitService.getAll();
+        List<Parfum> parfums = parfumService.getAll();
         mv.addObject("categories", categories);
-        mv.addObject("natureProduits", natureProduits);
+        mv.addObject("parfums", parfums);
         mv.addObject("all", ventes);
         mv.addObject("page", "vente/list");
         return mv;
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/listVente")
     public ModelAndView showVente(@RequestParam(required = false) Integer idCategorie,
-                                          @RequestParam(required = false) Integer idNatureProduit) {
+                                          @RequestParam(required = false) Integer idParfum) {
         ModelAndView mv = new ModelAndView("layout");
         List<Categorie> categories = categorieService.getAll();
-        List<NatureProduit> natureProduits = natureProduitService.getAll();
+        List<Parfum> parfums = parfumService.getAll();
         mv.addObject("categories", categories);
-        mv.addObject("natureProduits", natureProduits);
-        List<Vente> ventes = venteService.findByCriteria(idCategorie, idNatureProduit);
+        mv.addObject("parfums", parfums);
+        List<Vente> ventes = venteService.findByCriteria(idCategorie, idParfum);
         mv.addObject("all", ventes);
         mv.addObject("page", "vente/list");
         return mv;

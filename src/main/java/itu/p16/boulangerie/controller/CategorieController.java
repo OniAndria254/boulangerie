@@ -20,7 +20,7 @@ public class CategorieController {
     @Autowired
     private CategorieService categorieService;
 
-    @GetMapping("/add")
+    @GetMapping("/addCategorie")
     public ModelAndView showCategorieForm() {
         ModelAndView mv = new ModelAndView("layout");
         mv.addObject("page", "categorie/new");
@@ -38,7 +38,7 @@ public class CategorieController {
         return "redirect:/categorie/list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listCategorie")
     public ModelAndView showAll() {
         ModelAndView mv = new ModelAndView("layout");
         List<Categorie> categories = categorieService.getAll();

@@ -1,6 +1,7 @@
 <%@ page import="itu.p16.boulangerie.entity.Produit" %>
 <%@ page import="itu.p16.boulangerie.entity.Categorie" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="itu.p16.boulangerie.entity.Parfum" %><%--
   Created by IntelliJ IDEA.
   User: onian
   Date: 06/01/2025
@@ -12,6 +13,7 @@
 <%
     Produit produit = (Produit) request.getAttribute("produit");
     List<Categorie> all = (List<Categorie>) request.getAttribute("all");
+    List<Parfum> parfums = (List<Parfum>) request.getAttribute("parfums");
 %>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -40,6 +42,22 @@
                             %>
                             <option value="<%= cat.getIdCategorie() %>" <%= isSelected ? "selected" : "" %>>
                                 <%= cat.getNom() %>
+                            </option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="idParfum" class="form-label">Parfum</label>
+                        <select class="form-control" id="idParfum" name="idParfum">
+                            <%
+                                for (Parfum p : parfums) {
+                                    boolean isSelected = produit.getParfumByIdParfum().getIdParfum().equals(p.getIdParfum());
+                            %>
+                            <option value="<%= p.getIdParfum() %>" <%= isSelected ? "selected" : "" %>>
+                                <%= p.getNom() %>
                             </option>
                             <%
                                 }

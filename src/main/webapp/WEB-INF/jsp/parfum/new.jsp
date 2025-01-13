@@ -14,9 +14,9 @@
     <div class="card">
       <div class="card-body">
 
-        <h4 class="card-title">Insertion Nature des produits</h4>
+        <h4 class="card-title">Insertion de nouveau parfum</h4>
 
-        <form class="forms-sample" method="post" action="/natureProduit/add">
+        <form class="forms-sample" method="post" action="/parfum/add">
           <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom">

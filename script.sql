@@ -3,108 +3,105 @@ CREATE DATABASE boulangerie;
 \c boulangerie;
 
 CREATE TABLE unite_mesure(
-   Id_unite_mesure SERIAL,
-   libelle VARCHAR(50)  NOT NULL,
-   description VARCHAR(100) ,
-   PRIMARY KEY(Id_unite_mesure),
-   UNIQUE(libelle)
+                             Id_unite_mesure SERIAL,
+                             libelle VARCHAR(50)  NOT NULL,
+                             description VARCHAR(100) ,
+                             PRIMARY KEY(Id_unite_mesure),
+                             UNIQUE(libelle)
 );
 
 CREATE TABLE stock_ingredient_mere(
-   Id_mere SERIAL,
-   daty DATE,
-   PRIMARY KEY(Id_mere)
-);
-
-CREATE TABLE categorie(
-    Id_categorie SERIAL,
-    nom VARCHAR(50) ,
-    PRIMARY KEY(Id_categorie)
-);
-
-CREATE TABLE nature_produit(
-    id_nature_produit SERIAL,
-    nom VARCHAR(50)  NOT NULL,
-    PRIMARY KEY(id_nature_produit)
-);
-
-CREATE TABLE produit(
-    Id_produit SERIAL,
-    nom VARCHAR(50)  NOT NULL,
-    prix_vente NUMERIC(15,2)   NOT NULL,
-    id_nature_produit INTEGER NOT NULL,
-    Id_categorie INTEGER NOT NULL,
-    PRIMARY KEY(Id_produit),
-    UNIQUE(nom),
-    FOREIGN KEY(id_nature_produit) REFERENCES nature_produit(id_nature_produit),
-    FOREIGN KEY(Id_categorie) REFERENCES categorie(Id_categorie)
-);
-
-
-
-CREATE TABLE production(
-   Id_production SERIAL,
-   quantite_produite INTEGER NOT NULL,
-   date_production DATE,
-   Id_produit INTEGER NOT NULL,
-   PRIMARY KEY(Id_production),
-   FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+                                      Id_mere SERIAL,
+                                      daty DATE,
+                                      PRIMARY KEY(Id_mere)
 );
 
 CREATE TABLE stock_produit_mere(
-   Id_mere SERIAL,
-   daty DATE,
-   PRIMARY KEY(Id_mere)
+                                   Id_mere SERIAL,
+                                   daty DATE,
+                                   PRIMARY KEY(Id_mere)
 );
 
-CREATE TABLE stock_produit_fille(
-   Id_fille SERIAL,
-   entree INTEGER,
-   sortie INTEGER ,
-   Id_mere INTEGER NOT NULL,
-   Id_produit INTEGER NOT NULL,
-   PRIMARY KEY(Id_fille),
-   FOREIGN KEY(Id_mere) REFERENCES stock_produit_mere(Id_mere),
-   FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+CREATE TABLE categorie(
+                          Id_categorie SERIAL,
+                          nom VARCHAR(50) ,
+                          PRIMARY KEY(Id_categorie)
+);
+
+CREATE TABLE parfum(
+                       Id_parfum SERIAL,
+                       nom VARCHAR(50)  NOT NULL,
+                       PRIMARY KEY(Id_parfum)
 );
 
 CREATE TABLE ingredient(
-   Id_ingredient SERIAL,
-   nom VARCHAR(50)  NOT NULL,
-   Id_unite_mesure INTEGER NOT NULL,
-   PRIMARY KEY(Id_ingredient),
-   UNIQUE(nom),
-   FOREIGN KEY(Id_unite_mesure) REFERENCES unite_mesure(Id_unite_mesure)
+                           Id_ingredient SERIAL,
+                           nom VARCHAR(50)  NOT NULL,
+                           Id_unite_mesure INTEGER NOT NULL,
+                           PRIMARY KEY(Id_ingredient),
+                           UNIQUE(nom),
+                           FOREIGN KEY(Id_unite_mesure) REFERENCES unite_mesure(Id_unite_mesure)
 );
 
 CREATE TABLE stock_ingredient_fille(
-   Id_fille SERIAL,
-   entree NUMERIC(15,2)  ,
-   sortie NUMERIC(15,2)  ,
-   Id_ingredient INTEGER NOT NULL,
-   Id_mere INTEGER NOT NULL,
-   PRIMARY KEY(Id_fille),
-   FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
-   FOREIGN KEY(Id_mere) REFERENCES stock_ingredient_mere(Id_mere)
+                                       Id_fille SERIAL,
+                                       entree NUMERIC(15,2)  ,
+                                       sortie NUMERIC(15,2)  ,
+                                       Id_ingredient INTEGER NOT NULL,
+                                       Id_mere INTEGER NOT NULL,
+                                       PRIMARY KEY(Id_fille),
+                                       FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
+                                       FOREIGN KEY(Id_mere) REFERENCES stock_ingredient_mere(Id_mere)
 );
 
+CREATE TABLE produit(
+                        Id_produit SERIAL,
+                        nom VARCHAR(50)  NOT NULL,
+                        prix_vente NUMERIC(15,2)   NOT NULL,
+                        Id_parfum INTEGER NOT NULL,
+                        Id_categorie INTEGER NOT NULL,
+                        PRIMARY KEY(Id_produit),
+                        UNIQUE(nom),
+                        FOREIGN KEY(Id_parfum) REFERENCES parfum(Id_parfum),
+                        FOREIGN KEY(Id_categorie) REFERENCES categorie(Id_categorie)
+);
+
+CREATE TABLE production(
+                           Id_production SERIAL,
+                           quantite_produite INTEGER NOT NULL,
+                           date_production DATE,
+                           Id_produit INTEGER NOT NULL,
+                           PRIMARY KEY(Id_production),
+                           FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+);
+
+CREATE TABLE stock_produit_fille(
+                                    Id_fille SERIAL,
+                                    entree INTEGER,
+                                    sortie INTEGER,
+                                    Id_produit INTEGER NOT NULL,
+                                    Id_mere INTEGER NOT NULL,
+                                    PRIMARY KEY(Id_fille),
+                                    FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit),
+                                    FOREIGN KEY(Id_mere) REFERENCES stock_produit_mere(id_mere)
+);
 
 CREATE TABLE vente(
-    Id_vente SERIAL,
-    quantite INTEGER NOT NULL,
-    date_vente DATE,
-    Id_produit INTEGER NOT NULL,
-    PRIMARY KEY(Id_vente),
-    FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+                      Id_vente SERIAL,
+                      quantite INTEGER NOT NULL,
+                      date_vente DATE,
+                      Id_produit INTEGER NOT NULL,
+                      PRIMARY KEY(Id_vente),
+                      FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
 CREATE TABLE recette(
-   Id_ingredient INTEGER,
-   Id_produit INTEGER,
-   quantite NUMERIC(15,2)   NOT NULL,
-   PRIMARY KEY(Id_ingredient, Id_produit),
-   FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
-   FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+                        Id_ingredient INTEGER,
+                        Id_produit INTEGER,
+                        quantite NUMERIC(15,2)   NOT NULL,
+                        PRIMARY KEY(Id_ingredient, Id_produit),
+                        FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
+                        FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
 
@@ -150,11 +147,11 @@ INSERT INTO categorie (nom) VALUES
 ('Patisserie'),
 ('Sandwich');
 
--- Ajout de natures de produit
-INSERT INTO nature_produit (nom) VALUES 
-('nature'),
-('au chocolat'),
-('au jambon');
+-- Ajout de parfums de produit
+INSERT INTO parfum (nom) VALUES
+('Nature'),
+('Chocolat'),
+('Jambon');
 
 -- Ajout d'ingrédients
 INSERT INTO ingredient (nom, Id_unite_mesure) VALUES 
@@ -166,7 +163,7 @@ INSERT INTO ingredient (nom, Id_unite_mesure) VALUES
 ('Sucre', 1);
 
 -- Ajout des produits
-INSERT INTO produit (nom, prix_vente, id_nature_produit, Id_categorie) VALUES 
+INSERT INTO produit (nom, prix_vente, Id_parfum, Id_categorie) VALUES
 ('Croissant nature', 1500, 1, 1), -- Nature
 ('Croissant au chocolat', 2000, 2, 1), -- Au chocolat
 ('Croissant au jambon', 3000, 3, 1); -- Au jambon

@@ -9,9 +9,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="itu.p16.boulangerie.entity.Categorie" %>
-<%@ page import="itu.p16.boulangerie.entity.NatureProduit" %>
+<%@ page import="itu.p16.boulangerie.entity.Parfum" %>
+<%@ page import="itu.p16.boulangerie.entity.Parfum" %>
 <%
-    List<NatureProduit> natureProduits = (List<NatureProduit>) request.getAttribute("all");
+    List<Parfum> parfums = (List<Parfum>) request.getAttribute("all");
 %>
 
 
@@ -19,7 +20,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="card-title">Liste de la nature des produits</h6>
+                <h6 class="card-title">Liste des parfums</h6>
                 <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
@@ -30,11 +31,11 @@
                         </thead>
                         <tbody>
                         <%
-                            for (NatureProduit natureProduit : natureProduits) {
+                            for (Parfum parfum : parfums) {
                         %>
                         <tr>
-                            <td><%= natureProduit.getIdNatureProduit()%></td>
-                            <td><%= natureProduit.getNom()%></td>
+                            <td><%= parfum.getIdParfum()%></td>
+                            <td><%= parfum.getNom()%></td>
 
                         </tr>
                         <%

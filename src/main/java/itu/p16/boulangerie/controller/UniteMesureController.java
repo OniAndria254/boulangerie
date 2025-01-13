@@ -20,7 +20,7 @@ public class UniteMesureController {
     @Autowired
     private UniteMesureService uniteMesureService;
 
-    @GetMapping("/add")
+    @GetMapping("/addUM")
     public ModelAndView showUMForm() {
         ModelAndView mv = new ModelAndView("layout");
         mv.addObject("page", "uniteMesure/new");
@@ -37,10 +37,10 @@ public class UniteMesureController {
         uniteMesure.setDescription(description);
 
         UniteMesure insere = uniteMesureService.save(uniteMesure);
-        return "redirect:/uniteMesure/list";
+        return "redirect:/uniteMesure/listUM";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listUM")
     public ModelAndView showAllUM() {
         ModelAndView mv = new ModelAndView("layout");
         List<UniteMesure> uniteMesures = uniteMesureService.getAll();

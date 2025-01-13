@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">Filtrer les produits</h6>
-                <form method="get" action="/produit/list">
+                <form method="get" action="/produit/listProduit">
                     <div class="row">
                         <div class="col-md-3">
                             <input type="text" name="nom" class="form-control" placeholder="Nom du produit"
@@ -73,7 +73,7 @@
                             <th>Nom</th>
                             <th>Prix de vente</th>
                             <th>Catégorie</th>
-                            <th>Nature Produit</th>
+                            <th>Parfum</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -86,7 +86,7 @@
                             <td><%= pt.getNom()%></td>
                             <td><%= pt.getPrixVente()%></td>
                             <td><%= pt.getCategorieByIdCategorie().getNom()%></td>
-                            <td><%= pt.getNatureProduitByIdNatureProduit().getNom()%></td>
+                            <td><%= pt.getParfumByIdParfum().getNom()%></td>
 
                             <td>
                                 <a href="/produit/update?id=<%= pt.getIdProduit() %>" class="btn btn-warning btn-sm">Modifier</a>

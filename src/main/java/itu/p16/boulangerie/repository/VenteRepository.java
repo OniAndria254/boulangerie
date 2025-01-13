@@ -1,7 +1,5 @@
 package itu.p16.boulangerie.repository;
 
-import itu.p16.boulangerie.entity.NatureProduit;
-import itu.p16.boulangerie.entity.Production;
 import itu.p16.boulangerie.entity.Vente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,9 +13,9 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
         FROM vente v
         JOIN produit p ON v.id_produit = p.id_produit
         WHERE (:idCategorie IS NULL OR p.id_categorie = :idCategorie)
-          AND (:idNatureProduit IS NULL OR p.id_nature_produit = :idNatureProduit)
+          AND (:idParfum IS NULL OR p.id_parfum = :idParfum)
         """,
             nativeQuery = true)
     List<Vente> findByCriteria(@Param("idCategorie") Integer idCategorie,
-                               @Param("idNatureProduit") Integer idNatureProduit);
+                               @Param("idParfum") Integer idParfum);
 }

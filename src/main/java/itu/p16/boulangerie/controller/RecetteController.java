@@ -28,7 +28,7 @@ public class RecetteController {
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/add")
+    @GetMapping("/addRecette")
     public ModelAndView showRecetteForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<Ingredient> all = ingredientService.getAll();
@@ -58,7 +58,7 @@ public class RecetteController {
         return mv;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listRecette")
     public ModelAndView showAll() {
         ModelAndView mv = new ModelAndView("layout");
         List<Recette> recettes = recetteService.getAll();

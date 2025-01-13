@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">Filtrer les productions</h6>
-                <form method="get" action="/production/list">
+                <form method="get" action="/production/listProduction">
                     <div class="row">
                         <div class="col-md-3">
                             <select name="idCategorie" class="form-control">
