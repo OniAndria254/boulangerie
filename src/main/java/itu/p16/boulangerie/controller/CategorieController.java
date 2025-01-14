@@ -35,7 +35,7 @@ public class CategorieController {
         categorie.setNom(nom);
 
         Categorie insere = categorieService.save(categorie);
-        return "redirect:/categorie/list";
+        return "redirect:/categorie/listCategorie";
     }
 
     @GetMapping("/listCategorie")

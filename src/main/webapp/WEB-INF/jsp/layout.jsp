@@ -108,6 +108,9 @@
                             <li class="nav-item">
                                 <a href="/vente/addVente" class="nav-link">Vente</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/produitConseille/addProduitConseille" class="nav-link">Produit conseillé</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -145,6 +148,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/vente/listVente" class="nav-link">Vente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/produitConseille/listConseille" class="nav-link">Produit conseillé</a>
                             </li>
 
                         </ul>
