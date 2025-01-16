@@ -21,6 +21,10 @@ public class Vente {
     @JoinColumn(name = "id_produit", referencedColumnName = "id_produit", nullable = false)
     private Produit produitByIdProduit;
 
+    @ManyToOne
+    @JoinColumn(name = "id_client", referencedColumnName = "id_client", nullable = false)
+    private Client clientByIdClient;
+
     public Integer getIdVente() {
         return idVente;
     }
@@ -45,6 +49,13 @@ public class Vente {
         this.dateVente = dateVente;
     }
 
+    public Client getClientByIdClient() {
+        return clientByIdClient;
+    }
+
+    public void setClientByIdClient(Client clientByIdClient) {
+        this.clientByIdClient = clientByIdClient;
+    }
 
     public Produit getProduitByIdProduit() {
         return produitByIdProduit;
