@@ -1,5 +1,6 @@
 <%@ page import="itu.p16.boulangerie.entity.Produit" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="itu.p16.boulangerie.entity.Client" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 09/01/2025
@@ -10,6 +11,8 @@
 
 <%
   List<Produit> all = (List<Produit>) request.getAttribute("all");
+  List<Client> clients = (List<Client>) request.getAttribute("clients");
+
   String error = (String) request.getAttribute("error");
   if(error != null)
   {
@@ -48,6 +51,17 @@
           <div class="mb-3">
             <label for="date_vente" class="form-label">Date de vente</label>
             <input type="date" class="form-control" id="date_vente" name="date_vente">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Client</label>
+            <select class="form-select mb-3" name="id_client">
+              <%
+                for (Client cl : clients) { %>
+              <option value="<%= cl.getIdClient() %>"><%= cl.getPrenom() %></option>
+              <%}
+              %>
+            </select>
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Ajouter</button>

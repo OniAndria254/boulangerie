@@ -6,6 +6,7 @@ import itu.p16.boulangerie.repository.StockProduitMereRepository;
 import itu.p16.boulangerie.repository.VenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class VenteService {
 
 
     public List<Vente> getAll() {
-        return venteRepository.findAll();
+        return venteRepository.findAll(Sort.by(Sort.Direction.ASC, "quantite"));
     }
 
     public Optional<Vente> getById(Integer id) { return venteRepository.findById(id); }

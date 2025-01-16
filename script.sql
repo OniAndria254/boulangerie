@@ -86,14 +86,26 @@ CREATE TABLE stock_produit_fille(
                                     FOREIGN KEY(Id_mere) REFERENCES stock_produit_mere(id_mere)
 );
 
+CREATE TABLE client(
+                       Id_client SERIAL,
+                       nom VARCHAR(50) ,
+                       prenom VARCHAR(50) ,
+                       date_naissance DATE,
+                       PRIMARY KEY(Id_client)
+);
+
+
 CREATE TABLE vente(
                       Id_vente SERIAL,
                       quantite INTEGER NOT NULL,
                       date_vente DATE,
+                      Id_client INTEGER NOT NULL,
                       Id_produit INTEGER NOT NULL,
                       PRIMARY KEY(Id_vente),
+                      FOREIGN KEY(Id_client) REFERENCES client(Id_client),
                       FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
+
 
 CREATE TABLE produit_conseille(
                                   Id_produit_conseille SERIAL,
