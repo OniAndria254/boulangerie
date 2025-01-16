@@ -1,6 +1,7 @@
 package itu.p16.boulangerie.dto;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class ClientAchatDTO {
     private Integer idClient;
@@ -8,10 +9,10 @@ public class ClientAchatDTO {
     private String prenom;
     private String produit;
     private Integer quantite;
-    private Date dateVente;
+    private LocalDate dateVente;
 
     // Constructeur
-    public ClientAchatDTO(Integer idClient, String nom, String prenom, String produit, Integer quantite, Date dateVente) {
+    public ClientAchatDTO(Integer idClient, String nom, String prenom, String produit, Integer quantite, LocalDate dateVente) {
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
@@ -61,11 +62,11 @@ public class ClientAchatDTO {
         this.quantite = quantite;
     }
 
-    public Date getDateVente() {
+    public LocalDate getDateVente() {
         return dateVente;
     }
 
-    public void setDateVente(Date dateVente) {
+    public void setDateVente(LocalDate dateVente) {
         this.dateVente = dateVente;
     }
 }

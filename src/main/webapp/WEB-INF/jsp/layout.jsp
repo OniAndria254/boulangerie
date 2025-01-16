@@ -111,6 +111,9 @@
                             <li class="nav-item">
                                 <a href="/produitConseille/addProduitConseille" class="nav-link">Produit conseillé</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/client/addClient" class="nav-link">Client</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -153,6 +156,13 @@
                                 <a href="/produitConseille/listConseille" class="nav-link">Produit conseillé</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="/client/listClient" class="nav-link">Clients</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/client/clientsAvecAchats" class="nav-link">Client avec achats</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

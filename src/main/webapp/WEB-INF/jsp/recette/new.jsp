@@ -41,7 +41,7 @@
 
           <button type="button" class="btn btn-success" id="addIngredientBtn">Ajouter un autre ingrédient</button>
           <button type="button" class="btn btn-primary me-2" id="submitFormBtn">Ajouter</button>
-          <button type="button" class="btn btn-secondary" onclick="window.location.href='/recette/list';">Annuler</button>
+          <button type="button" class="btn btn-secondary" onclick="window.location.href='/recette/listRecette';">Annuler</button>
         </form>
 
 
@@ -101,7 +101,7 @@
             .then(response => {
               if (response.ok) {
                 alert('Recette ajoutée avec succès');
-                window.location.href = '/recette/list';
+                window.location.href = '/recette/listRecette';
               } else {
                 response.json().then(err => console.error('Erreur:', err));
               }

@@ -72,6 +72,7 @@
               <th>Produit</th>
               <th>Quantite</th>
               <th>Date</th>
+              <th>Client</th>
             </tr>
             </thead>
             <tbody>
@@ -82,6 +83,8 @@
               <td><%= vt.getProduitByIdProduit().getNom()%></td>
               <td><%= vt.getQuantite()%></td>
               <td><%= vt.getDateVente()%></td>
+              <td><%= vt.getClientByIdClient().getPrenom()%></td>
+
             </tr>
             <%
               }

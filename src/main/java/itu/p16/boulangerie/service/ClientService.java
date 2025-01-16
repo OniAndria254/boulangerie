@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,9 +42,16 @@ public class ClientService {
 
 
     // Récupérer les clients avec les détails des achats, avec filtre sur la date d'achat
-    public List<ClientAchatDTO> getClientsWithAchatsAndDetails(java.sql.Date dateAchat) {
-        List<Object[]> results = venteRepository.findClientsWithAchatsAndDetails(dateAchat);
+    // Utiliser java.time.LocalDate pour le paramètre
+    public List<ClientAchatDTO> getClientsWithAchatsAndDetails(LocalDate dateAchat) {
+        // Convertir LocalDate en java.sql.Date
+        Date sqlDate = (dateAchat != null) ? Date.valueOf(dateAchat) : null;
 
+//        System.out.println(sqlDate.toString());
+        // Appeler le repository avec java.sql.Date
+        List<Object[]> results = venteRepository.findClientsWithAchatsAndDetails(sqlDate);
+
+        // Mapper les résultats en DTO
         return results.stream()
                 .map(row -> new ClientAchatDTO(
                         (Integer) row[0], // Id_client
@@ -51,7 +59,7 @@ public class ClientService {
                         (String) row[2],  // prenom
                         (String) row[3],  // produit
                         (Integer) row[4], // quantite
-                        (Date) row[5]     // date_vente
+                        ((Date) row[5]).toLocalDate() // Convertir java.sql.Date en LocalDate
                 ))
                 .collect(Collectors.toList());
     }

@@ -32,12 +32,12 @@ public class ClientController {
     public String addClient(
             @RequestParam("nom") String nom,
             @RequestParam("prenom") String prenom,
-            @RequestParam("dateNaissance") LocalDate dateNaissance
+            @RequestParam("date_naissance") LocalDate date_naissance
     ) {
         Client client = new Client();
         client.setNom(nom);
         client.setPrenom(prenom);
-        client.setDateNaissance(java.sql.Date.valueOf(dateNaissance)); // Convertir String en Date
+        client.setDateNaissance(java.sql.Date.valueOf(date_naissance)); // Convertir String en Date
 
         clientService.save(client);
         return "redirect:/client/listClient";
@@ -54,12 +54,12 @@ public class ClientController {
     }
 
     // Afficher le formulaire de modification d'un client
-    @GetMapping("/edit/{id}")
-    public ModelAndView showEditForm(@PathVariable Integer id) {
+    @GetMapping("/update")
+    public ModelAndView showEditForm(@RequestParam("id") Integer id) {
         ModelAndView mv = new ModelAndView("layout");
         Client client = clientService.getById(id);
         mv.addObject("client", client);
-        mv.addObject("page", "client/edit");
+        mv.addObject("page", "client/update");
         return mv;
     }
 
@@ -81,19 +81,21 @@ public class ClientController {
     }
 
     // Supprimer un client
-    @GetMapping("/delete/{id}")
-    public String deleteClient(@PathVariable Integer id) {
+    @GetMapping("/delete")
+    public String deleteClient(@RequestParam("id") Integer id) {
         clientService.delete(id);
         return "redirect:/client/listClient";
     }
 
     @GetMapping("/clientsAvecAchats")
-    public ModelAndView showClientsWithAchats(@RequestParam(required = false) String dateAchat) {
+    public ModelAndView showClientsWithAchats(@RequestParam(required = false) LocalDate dateAchat) {
+        System.out.println(dateAchat);
         ModelAndView mv = new ModelAndView("layout");
-        Date date = (dateAchat != null && !dateAchat.isEmpty()) ? Date.valueOf(dateAchat) : null;
-        List<ClientAchatDTO> clientsAchats = clientService.getClientsWithAchatsAndDetails(date);
+        // Appeler le service avec LocalDate
+        List<ClientAchatDTO> clientsAchats = clientService.getClientsWithAchatsAndDetails(dateAchat);
+
         mv.addObject("all", clientsAchats);
-        mv.addObject("page", "client/listAchats");
+        mv.addObject("page", "client/listAchat");
         return mv;
     }
 }
