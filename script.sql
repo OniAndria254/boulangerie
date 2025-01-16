@@ -95,6 +95,15 @@ CREATE TABLE vente(
                       FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
+CREATE TABLE produit_conseille(
+                                  Id_produit_conseille SERIAL,
+                                  daty DATE NOT NULL,
+                                  Id_produit INTEGER NOT NULL,
+                                  PRIMARY KEY(Id_produit_conseille),
+                                  FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+);
+
+
 CREATE TABLE recette(
                         Id_ingredient INTEGER,
                         Id_produit INTEGER,
