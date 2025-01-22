@@ -29,9 +29,9 @@ public class VenteService {
         Integer stockDisponible = stockProduitFilleRepository.getStockDisponible(vente.getProduitByIdProduit().getIdProduit());
 
         // Vérifier si la quantité de la vente peut être déduite du stock
-        if (stockDisponible == null || stockDisponible < vente.getQuantite()) {
-            throw new IllegalArgumentException("Stock insuffisant pour le produit : " + vente.getProduitByIdProduit().getNom());
-        }
+//        if (stockDisponible == null || stockDisponible < vente.getQuantite()) {
+//            throw new IllegalArgumentException("Stock insuffisant pour le produit : " + vente.getProduitByIdProduit().getNom());
+//        }
 
         // Insérer une sortie dans stock_produit_fille
         StockProduitMere stockProduitMere = new StockProduitMere();

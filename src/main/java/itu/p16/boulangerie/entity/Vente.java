@@ -14,6 +14,10 @@ public class Vente {
     @Basic
     @Column(name = "quantite", nullable = false)
     private Integer quantite;
+
+    @Basic
+    @Column(name = "commission", nullable = false)
+    private Double commission;
     @Basic
     @Column(name = "date_vente", nullable = true)
     private Date dateVente;
@@ -24,6 +28,26 @@ public class Vente {
     @ManyToOne
     @JoinColumn(name = "id_client", referencedColumnName = "id_client", nullable = false)
     private Client clientByIdClient;
+
+    @ManyToOne
+    @JoinColumn(name = "id_vendeur", referencedColumnName = "id_vendeur", nullable = false)
+    private Vendeur vendeurByIdVendeur;
+
+    public Vendeur getVendeurByIdVendeur() {
+        return vendeurByIdVendeur;
+    }
+
+    public Double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(Double commission) {
+        this.commission = commission;
+    }
+
+    public void setVendeurByIdVendeur(Vendeur vendeurByIdVendeur) {
+        this.vendeurByIdVendeur = vendeurByIdVendeur;
+    }
 
     public Integer getIdVente() {
         return idVente;

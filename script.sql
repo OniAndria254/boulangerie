@@ -95,24 +95,35 @@ CREATE TABLE client(
 );
 
 
+CREATE TABLE vendeur(
+                        Id_vendeur SERIAL,
+                        nom VARCHAR(50) ,
+                        prenom VARCHAR(50) ,
+                        salaire NUMERIC(15,2)  ,
+                        PRIMARY KEY(Id_vendeur)
+);
+
 CREATE TABLE vente(
                       Id_vente SERIAL,
                       quantite INTEGER NOT NULL,
                       date_vente DATE,
+                      Id_vendeur INTEGER NOT NULL,
                       Id_client INTEGER NOT NULL,
                       Id_produit INTEGER NOT NULL,
+                      commission NUMERIC(15, 2) NOT NULL DEFAULT 0, -- Nouvelle colonne
                       PRIMARY KEY(Id_vente),
+                      FOREIGN KEY(Id_vendeur) REFERENCES vendeur(Id_vendeur),
                       FOREIGN KEY(Id_client) REFERENCES client(Id_client),
                       FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
 
 CREATE TABLE produit_conseille(
-                                  Id_produit_conseille SERIAL,
-                                  daty DATE NOT NULL,
-                                  Id_produit INTEGER NOT NULL,
-                                  PRIMARY KEY(Id_produit_conseille),
-                                  FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+                          Id_produit_conseille SERIAL,
+                          daty DATE NOT NULL,
+                          Id_produit INTEGER NOT NULL,
+                          PRIMARY KEY(Id_produit_conseille),
+                          FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
 
 
@@ -127,19 +138,19 @@ CREATE TABLE recette(
 
 
 CREATE OR REPLACE VIEW etat_stock_ingredient AS
-SELECT 
+SELECT
     i.nom AS ingredient,
     um.libelle AS unite_mesure,
     COALESCE(SUM(sif.entree), 0) - COALESCE(SUM(sif.sortie), 0) AS stock_disponible
-FROM 
+FROM
     ingredient i
-LEFT JOIN 
+LEFT JOIN
     stock_ingredient_fille sif ON i.Id_ingredient = sif.Id_ingredient
-LEFT JOIN 
+LEFT JOIN
     unite_mesure um ON i.Id_unite_mesure = um.Id_unite_mesure
-GROUP BY 
+GROUP BY
     i.nom, um.libelle
-ORDER BY 
+ORDER BY
     i.nom;
 
 
@@ -230,8 +241,19 @@ INSERT INTO stock_produit_fille (entree, sortie, Id_produit, Id_mere) VALUES
 (15, 0, 2, 1), -- Croissant au chocolat
 (10, 0, 3, 1); -- Croissant au jambon
 
--- Ajout de ventes
-INSERT INTO vente (quantite, date_vente, Id_produit) VALUES 
-(5, '2025-01-03', 1), -- Vente de croissants nature
-(3, '2025-01-03', 2), -- Vente de croissants au chocolat
-(2, '2025-01-03', 3); -- Vente de croissants au jambon
+
+-- Insertion 1
+INSERT INTO vendeur (nom, prenom, salaire) VALUES ('Dupont', 'Jean', 200000.00);
+
+-- Insertion 2
+INSERT INTO vendeur (nom, prenom, salaire) VALUES ('Martin', 'Alice', 250000.00);
+
+-- Insertion 3
+INSERT INTO vendeur (nom, prenom, salaire) VALUES ('Leroy', 'Paul', 250000.00);
+
+-- Insertion 4
+INSERT INTO vendeur (nom, prenom, salaire) VALUES ('Bernard', 'Sophie', 250000.00);
+
+-- Insertion 5
+INSERT INTO vendeur (nom, prenom, salaire) VALUES ('Petit', 'Luc', 250000.00);
+

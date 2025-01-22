@@ -114,6 +114,9 @@
                             <li class="nav-item">
                                 <a href="/client/addClient" class="nav-link">Client</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/vendeur/addVendeur" class="nav-link">Vendeur</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -162,6 +165,14 @@
 
                             <li class="nav-item">
                                 <a href="/client/clientsAvecAchats" class="nav-link">Client avec achats</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/vendeur/listVendeur" class="nav-link">Vendeur</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/commissions" class="nav-link">Voir commissions</a>
                             </li>
                         </ul>
                     </div>
