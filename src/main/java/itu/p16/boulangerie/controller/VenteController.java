@@ -68,8 +68,7 @@ public class VenteController {
 
         vente.setProduitByIdProduit(p);
 
-        Double commission = vente.getProduitByIdProduit().getPrixVente()*0.05;
-        vente.setCommission(commission*vente.getQuantite());
+
         try {
             venteService.save(vente);
         }

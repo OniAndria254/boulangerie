@@ -6,6 +6,7 @@ import itu.p16.boulangerie.repository.StockProduitMereRepository;
 import itu.p16.boulangerie.repository.VenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.util.Optional;
 
 @Service
 public class VenteService {
+    @Value("${app.commission.rate}")
+    private double commissionRate;
     @Autowired
     private VenteRepository venteRepository;
     @Autowired
@@ -44,6 +47,9 @@ public class VenteService {
         sortieStock.setProduitByIdProduit(produit);
         sortieStock.setStockProduitMereByIdMere(stockProduitMere);
         stockProduitFilleRepository.save(sortieStock);
+
+        Double commissionUnitaire = vente.getProduitByIdProduit().getPrixVente() * this.commissionRate;
+        vente.setCommission(commissionUnitaire*vente.getQuantite());
 
         // Enregistrer la vente
         return venteRepository.save(vente);
