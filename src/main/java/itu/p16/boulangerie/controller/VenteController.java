@@ -32,11 +32,15 @@ public class VenteController {
     private ParfumService parfumService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private VendeurService vendeurService;
 
     @GetMapping("/addVente")
     public ModelAndView showVenteForm() {
         ModelAndView mv = new ModelAndView("layout");
         List<Client> clients = clientService.getAll();
+        List<Vendeur> vendeurs = vendeurService.getAllVendeurs();
+        mv.addObject("vendeurs", vendeurs);
         mv.addObject("clients", clients);
         List<Produit> produits = produitService.getAll();
         mv.addObject("all", produits);
@@ -49,16 +53,22 @@ public class VenteController {
             @RequestParam("id_produit") Integer idProduit,
             @RequestParam("quantite_vendu") Integer quantiteVendu,
             @RequestParam("date_vente") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateVente,
+            @RequestParam("id_vendeur") Integer id_vendeur,
             @RequestParam("id_client") Integer id_client
     ) {
         Vente vente = new Vente();
         vente.setDateVente(Date.valueOf(dateVente));
+
         vente.setQuantite(quantiteVendu);
+        Vendeur vendeur = vendeurService.getVendeurById(id_vendeur);
+        vente.setVendeurByIdVendeur(vendeur);
         Client client = clientService.getById(id_client);
         Produit p = produitService.getById(idProduit).orElseThrow();
         vente.setClientByIdClient(client);
 
         vente.setProduitByIdProduit(p);
+
+
         try {
             venteService.save(vente);
         }
