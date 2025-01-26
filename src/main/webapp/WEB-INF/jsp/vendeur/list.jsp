@@ -28,6 +28,7 @@
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>Salaire</th>
+                            <th>Genre</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -40,6 +41,7 @@
                             <td><%= vd.getNom()%></td>
                             <td><%= vd.getPrenom()%></td>
                             <td><%= vd.getSalaire()%></td>
+                            <td><%= vd.getGenreByIdGenre().getNom()%></td>
 
                             <td>
                                 <a href="/vendeur/update?id=<%= vd.getIdVendeur() %>" class="btn btn-warning btn-sm">Modifier</a>

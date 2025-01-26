@@ -95,13 +95,32 @@ CREATE TABLE client(
 );
 
 
+CREATE TABLE genre(
+                      Id_genre SERIAL,
+                      nom VARCHAR(50) ,
+                      PRIMARY KEY(Id_genre)
+);
+
+
 CREATE TABLE vendeur(
                         Id_vendeur SERIAL,
                         nom VARCHAR(50) ,
                         prenom VARCHAR(50) ,
                         salaire NUMERIC(15,2)  ,
-                        PRIMARY KEY(Id_vendeur)
+                        Id_genre INTEGER NOT NULL,
+                        PRIMARY KEY(Id_vendeur),
+                        FOREIGN KEY(Id_genre) REFERENCES genre(Id_genre)
 );
+
+CREATE TABLE commission_config (
+                                   Id_commission_config SERIAL,
+                                   taux_commission NUMERIC(5,2) NOT NULL,  -- Taux de commission (ex: 0.05 pour 5%)
+                                   montant_min_commission NUMERIC(15,2) NOT NULL,  -- Montant minimum de commission (ex: 200000)
+                                   date_config DATE NOT NULL,  -- Date à partir de laquelle cette configuration est effective
+                                   PRIMARY KEY(Id_commission_config),
+                                   UNIQUE(date_config)  -- Assure qu'il n'y a qu'une seule configuration par date
+);
+
 
 CREATE TABLE vente(
                       Id_vente SERIAL,
@@ -111,7 +130,9 @@ CREATE TABLE vente(
                       Id_client INTEGER NOT NULL,
                       Id_produit INTEGER NOT NULL,
                       commission NUMERIC(15, 2) NOT NULL DEFAULT 0, -- Nouvelle colonne
+                      Id_commission_config INTEGER,
                       PRIMARY KEY(Id_vente),
+                      FOREIGN KEY(Id_commission_config) REFERENCES commission_config(Id_commission_config),
                       FOREIGN KEY(Id_vendeur) REFERENCES vendeur(Id_vendeur),
                       FOREIGN KEY(Id_client) REFERENCES client(Id_client),
                       FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
@@ -135,6 +156,10 @@ CREATE TABLE recette(
                         FOREIGN KEY(Id_ingredient) REFERENCES ingredient(Id_ingredient),
                         FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
 );
+
+
+INSERT INTO commission_config (taux_commission, montant_min_commission, date_config)
+VALUES (0.05, 200000, '2025-01-01');
 
 
 CREATE OR REPLACE VIEW etat_stock_ingredient AS

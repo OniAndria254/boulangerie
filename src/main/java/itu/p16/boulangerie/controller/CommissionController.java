@@ -1,5 +1,6 @@
 package itu.p16.boulangerie.controller;
 
+import itu.p16.boulangerie.dto.CommissionGenreDTO;
 import itu.p16.boulangerie.dto.CommissionVendeurDTO;
 import itu.p16.boulangerie.service.CommissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class CommissionController {
         // Appeler le service avec les dates
         List<CommissionVendeurDTO> commissionsVendeurs = commissionService.getCommissionsVendeursBetweenDates(date_debut, date_fin);
 
+        List<CommissionGenreDTO> commissionGenreDTOS = commissionService.getCommissionsGenresBetweenDates(date_debut, date_fin);
+        mv.addObject("parGenre", commissionGenreDTOS);
         // Ajouter les résultats au modèle
         mv.addObject("all", commissionsVendeurs);
         mv.addObject("page", "vendeur/commission"); // Spécifier la vue à afficher

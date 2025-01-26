@@ -1,8 +1,11 @@
 
 <%@ page import="java.util.List" %>
+<%@ page import="itu.p16.boulangerie.entity.Genre" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
+<%
+    List<Genre> genres = (List<Genre>) request.getAttribute("genres");
+%>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -24,6 +27,15 @@
                     <div class="mb-3">
                         <label for="salaire" class="form-label">Salaire</label>
                         <input type="number" class="form-control" id="salaire" name="salaire">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Genre</label>
+                        <select class="form-select mb-3" name="idGenre" required>
+                            <% for (Genre g : genres) { %>
+                            <option value="<%= g.getIdGenre() %>"><%= g.getNom() %></option>
+                            <% } %>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary me-2">Ajouter</button>

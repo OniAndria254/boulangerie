@@ -1,5 +1,6 @@
 package itu.p16.boulangerie.repository;
 
+import itu.p16.boulangerie.dto.CommissionGenreDTO;
 import itu.p16.boulangerie.dto.CommissionVendeurDTO;
 import itu.p16.boulangerie.entity.Vendeur;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +30,30 @@ public interface CommissionRepository extends JpaRepository<Vendeur, Integer> {
         v.Id_vendeur, v.nom, v.prenom
     """, nativeQuery = true)
     List<CommissionVendeurDTO> findCommissionsVendeursBetweenDates(
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate
+    );
+
+    @Query(value = """
+        SELECT
+            g.Id_genre AS idGenre,
+            g.nom AS nomGenre,
+            CAST(SUM(ve.commission) AS DOUBLE PRECISION) AS commissionTotale,
+            MIN(ve.date_vente) AS dateDebut,
+            MAX(ve.date_vente) AS dateFin
+        FROM
+            genre g
+        JOIN
+            vendeur v ON g.Id_genre = v.Id_genre
+        JOIN
+            vente ve ON v.Id_vendeur = ve.Id_vendeur
+        WHERE
+            ve.date_vente >= COALESCE(:startDate, ve.date_vente)
+            AND ve.date_vente <= COALESCE(:endDate, ve.date_vente)
+        GROUP BY
+            g.Id_genre, g.nom
+        """, nativeQuery = true)
+    List<CommissionGenreDTO> findCommissionsGenresBetweenDates(
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate
     );

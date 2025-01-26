@@ -21,12 +21,23 @@ public class Vendeur {
     @Column(name = "salaire", nullable = true, precision = 2)
     private BigDecimal salaire;
 
+    @ManyToOne
+    @JoinColumn(name = "id_genre", referencedColumnName = "id_genre", nullable = false)
+    private Genre genreByIdGenre;
     public Integer getIdVendeur() {
         return idVendeur;
     }
 
     public void setIdVendeur(Integer idVendeur) {
         this.idVendeur = idVendeur;
+    }
+
+    public Genre getGenreByIdGenre() {
+        return genreByIdGenre;
+    }
+
+    public void setGenreByIdGenre(Genre genreByIdGenre) {
+        this.genreByIdGenre = genreByIdGenre;
     }
 
     public String getNom() {

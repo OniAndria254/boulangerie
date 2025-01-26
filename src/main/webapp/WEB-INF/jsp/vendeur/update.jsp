@@ -10,6 +10,7 @@
 
 <%
   Vendeur vendeur = (Vendeur) request.getAttribute("vendeur");
+  List<Genre> genres = (List<Genre>) request.getAttribute("genres");
 %>
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
@@ -34,7 +35,21 @@
             <input type="number" class="form-control" id="salaire" name="salaire" value="<%= vendeur.getSalaire() %>">
           </div>
 
-
+          <div class="mb-3">
+            <label for="idGenre" class="form-label">Catégorie</label>
+            <select class="form-control" id="idGenre" name="idGenre">
+              <%
+                for (Genre g : genres) {
+                  boolean isSelected = vendeur.getGenreByIdGenre().getIdGenre().equals(g.getIdGenre());
+              %>
+              <option value="<%= g.getIdGenre() %>" <%= isSelected ? "selected" : "" %>>
+                <%= g.getNom() %>
+              </option>
+              <%
+                }
+              %>
+            </select>
+          </div>
 
           <button type="submit" class="btn btn-primary">Mettre à jour</button>
         </form>

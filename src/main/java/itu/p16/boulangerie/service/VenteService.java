@@ -15,8 +15,9 @@ import java.util.Optional;
 
 @Service
 public class VenteService {
-    @Value("${app.commission.rate}")
-    private double commissionRate;
+    @Autowired
+    private CommissionConfigService commissionConfigService;
+
     @Autowired
     private VenteRepository venteRepository;
     @Autowired
@@ -48,13 +49,31 @@ public class VenteService {
         sortieStock.setStockProduitMereByIdMere(stockProduitMere);
         stockProduitFilleRepository.save(sortieStock);
 
-        Double commissionUnitaire = vente.getProduitByIdProduit().getPrixVente() * this.commissionRate;
-        vente.setCommission(commissionUnitaire*vente.getQuantite());
+        Optional<CommissionConfig> commissionConfig = commissionConfigService.getCommissionConfigByDate(vente.getDateVente());
+        if(commissionConfig.isPresent()) {
+            vente.setCommissionConfigByIdCommissionConfig(commissionConfig.get());
 
-        // Enregistrer la vente
+            Double commissionUnitaire = vente.getProduitByIdProduit().getPrixVente() * commissionConfig.get().getTauxCommission();
+
+            Double commissionTotale = commissionUnitaire * vente.getQuantite();
+
+            double prixTotal = vente.getProduitByIdProduit().getPrixVente() * vente.getQuantite();
+
+            if(estCommissionValide(vente, commissionConfig.get().getMontantMinCommission())) {
+                vente.setCommission(commissionTotale);
+            }
+            else {
+                vente.setCommission(0.0);
+            }
+
+            System.out.println(commissionConfig.get().getTauxCommission() + " " + commissionConfig.get().getMontantMinCommission());
+        }
         return venteRepository.save(vente);
     }
 
+    public boolean estCommissionValide(Vente vente, Double commissionMin) {
+        return vente.getProduitByIdProduit().getPrixVente() * vente.getQuantite() >= commissionMin;
+    }
 
     public List<Vente> getAll() {
         return venteRepository.findAll(Sort.by(Sort.Direction.ASC, "quantite"));
