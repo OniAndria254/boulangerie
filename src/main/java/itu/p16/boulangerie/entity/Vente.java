@@ -33,6 +33,18 @@ public class Vente {
     @JoinColumn(name = "id_vendeur", referencedColumnName = "id_vendeur", nullable = false)
     private Vendeur vendeurByIdVendeur;
 
+    @ManyToOne
+    @JoinColumn(name = "id_commission_config", referencedColumnName = "id_commission_config")
+    private CommissionConfig commissionConfigByIdCommissionConfig;
+
+    public CommissionConfig getCommissionConfigByIdCommissionConfig() {
+        return commissionConfigByIdCommissionConfig;
+    }
+
+    public void setCommissionConfigByIdCommissionConfig(CommissionConfig commissionConfigByIdCommissionConfig) {
+        this.commissionConfigByIdCommissionConfig = commissionConfigByIdCommissionConfig;
+    }
+
     public Vendeur getVendeurByIdVendeur() {
         return vendeurByIdVendeur;
     }

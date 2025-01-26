@@ -60,7 +60,7 @@
             <select class="form-select mb-3" name="id_vendeur">
               <%
                 for (Vendeur v : vendeurs) { %>
-              <option value="<%= v.getIdVendeur() %>"><%= v.getPrenom() %></option>
+              <option value="<%= v.getIdVendeur() %>"><%= v.getNom() %> <%= v.getPrenom() %></option>
               <%}
               %>
             </select>
