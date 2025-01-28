@@ -117,6 +117,10 @@
                             <li class="nav-item">
                                 <a href="/vendeur/addVendeur" class="nav-link">Vendeur</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/produit/updatePrix" class="nav-link">Modifier Prix produit</a>
+                            </li>
+
                         </ul>
                     </div>
                 </li>
@@ -173,6 +177,10 @@
 
                             <li class="nav-item">
                                 <a href="/commissions" class="nav-link">Voir commissions</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/produit/historique" class="nav-link">Voir Historique Prix</a>
                             </li>
                         </ul>
                     </div>

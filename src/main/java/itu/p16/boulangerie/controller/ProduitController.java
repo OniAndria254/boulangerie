@@ -2,6 +2,7 @@ package itu.p16.boulangerie.controller;
 
 import itu.p16.boulangerie.entity.*;
 import itu.p16.boulangerie.service.CategorieService;
+import itu.p16.boulangerie.service.HistoriquePrixService;
 import itu.p16.boulangerie.service.ParfumService;
 import itu.p16.boulangerie.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,8 @@ public class ProduitController {
     private CategorieService categorieService;
     @Autowired
     private ParfumService parfumService;
+    @Autowired
+    private HistoriquePrixService historiquePrixService;
 
     @GetMapping("/addProduit")
     public ModelAndView showProductForm() {
@@ -50,7 +55,13 @@ public class ProduitController {
         produit.setParfumByIdParfum(parfum);
         produit.setNom(nom);
         produit.setPrixVente(prix_vente);
-        produitService.save(produit);
+        Produit p1 = produitService.save(produit);
+        HistoriquePrix historiquePrix = new HistoriquePrix();
+        historiquePrix.setPrix(p1.getPrixVente());
+        historiquePrix.setDaty(Date.valueOf(LocalDate.now()));
+
+        historiquePrix.setProduitByIdProduit(produit);
+        historiquePrixService.addHistoriquePrix(historiquePrix);
         return "redirect:/produit/listProduit";
     }
 
@@ -82,6 +93,55 @@ public class ProduitController {
         mv.addObject("parfums", parfums);
         Produit produit = produitService.getById(id).orElseThrow();
         mv.addObject("produit", produit);
+        return mv;
+    }
+
+    @GetMapping("/updatePrix")
+    public ModelAndView showUpdatePrixForm() {
+        ModelAndView mv = new ModelAndView("layout");
+        mv.addObject("page", "produit/update_prix");
+        List<Produit> produits = produitService.getAll();
+        mv.addObject("all", produits);
+        return mv;
+    }
+
+    @PostMapping("/updatePrix")
+    public String updatePrixProduit(
+            @RequestParam("id") Integer id,
+            @RequestParam("prix") Double prix,
+            @RequestParam("daty") LocalDate daty) {
+        Produit produit = produitService.getById(id).orElseThrow();
+        produit.setPrixVente(prix);
+
+        HistoriquePrix historiquePrix = new HistoriquePrix();
+        historiquePrix.setPrix(prix);
+        historiquePrix.setDaty(Date.valueOf(daty));
+
+        historiquePrix.setProduitByIdProduit(produit);
+        historiquePrixService.addHistoriquePrix(historiquePrix);
+        produitService.save(produit);
+
+        return "redirect:/produit/historique";
+    }
+
+    @GetMapping("/historique")
+    public ModelAndView showHisto(@RequestParam(name = "produitId", required = false) Integer produitId) {
+        ModelAndView mv = new ModelAndView("layout");
+        mv.addObject("page", "produit/list_historique_prix");
+
+        // Récupérer tous les produits pour le filtre
+        List<Produit> produits = produitService.getAll();
+        mv.addObject("produits", produits);
+
+        // Récupérer l'historique des prix en fonction du filtre
+        List<HistoriquePrix> historiquePrix;
+        if (produitId != null && produitId > 0) {
+            historiquePrix = historiquePrixService.getHistoriquePrixByProduit(produitId);
+        } else {
+            historiquePrix = historiquePrixService.getAllHistoriquePrix();
+        }
+        mv.addObject("all", historiquePrix);
+
         return mv;
     }
 
