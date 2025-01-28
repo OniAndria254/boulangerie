@@ -103,13 +103,13 @@
         </div>
     </div>
 
-    <div class="col-md-6 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <canvas id="commissionChart" width="400" height="200"></canvas>
-            </div>
-        </div>
-    </div>
+<%--    <div class="col-md-6 grid-margin">--%>
+<%--        <div class="card">--%>
+<%--            <div class="card-body">--%>
+<%--                <canvas id="commissionChart" width="400" height="200"></canvas>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 </div>
 
 
