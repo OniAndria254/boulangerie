@@ -121,6 +121,15 @@ CREATE TABLE commission_config (
                                    UNIQUE(date_config)  -- Assure qu'il n'y a qu'une seule configuration par date
 );
 
+CREATE TABLE historique_prix(
+                                Id_historique_prix SERIAL,
+                                daty DATE,
+                                prix NUMERIC(15,2)  ,
+                                Id_produit INTEGER NOT NULL,
+                                PRIMARY KEY(Id_historique_prix),
+                                FOREIGN KEY(Id_produit) REFERENCES produit(Id_produit)
+);
+
 
 CREATE TABLE vente(
                       Id_vente SERIAL,
